@@ -3,620 +3,433 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f4f0e8">
-<meta name="description" content="A lightweight classroom presentation about writing messages of condolence.">
-<title>Writing Messages of Condolence — Classroom Presentation</title>
+<meta name="theme-color" content="#f5f1e9">
+<meta name="description" content="A concise classroom presentation about writing messages of condolence.">
+<title>Writing Messages of Condolence — Final Classroom Presentation</title>
 <style>
 :root{
-  --paper:#f7f3eb; --paper2:#fffdf8; --ink:#282522; --muted:#6e6860;
-  --wine:#713f46; --wine2:#9a6368; --sage:#667467; --sage2:#dce3da;
-  --line:#d8d0c5; --gold:#b3976d; --shadow:0 14px 36px rgba(40,37,34,.10);
-  --radius:24px; --ease:cubic-bezier(.22,.8,.24,1);
+  --bg:#f5f1e9;
+  --paper:#fffdf8;
+  --paper2:#eee9df;
+  --ink:#20282d;
+  --muted:#697177;
+  --red:#a0443d;
+  --red2:#e8d3cf;
+  --navy:#243843;
+  --navy2:#5a7280;
+  --sage:#83978e;
+  --sage2:#dce5df;
+  --gold:#b79a62;
+  --line:#d9d1c6;
+  --shadow:0 18px 48px rgba(36,56,67,.11);
+  --shadow2:0 8px 24px rgba(36,56,67,.07);
+  --radius:22px;
+  --ease:cubic-bezier(.22,.8,.24,1);
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;min-height:100%;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
-html{overflow-y:auto;overflow-x:hidden}
-body{touch-action:pan-y;overflow-y:auto;overflow-x:hidden}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+body{overflow:hidden;touch-action:pan-y}
 button{font:inherit}
-.deck{position:relative;width:100vw;min-height:100vh;overflow:visible;background:linear-gradient(135deg,#f8f4ec 0%,#f1ece2 100%)}
-.slide{position:relative;min-height:100vh;padding:clamp(22px,4vw,58px);display:none;flex-direction:column;overflow:visible}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:clamp(22px,4vw,58px);overflow:hidden;background:
+  radial-gradient(circle at 92% 6%,rgba(160,68,61,.08) 0 10%,transparent 11%),
+  radial-gradient(circle at 4% 92%,rgba(131,151,142,.09) 0 9%,transparent 10%),
+  var(--bg)}
 .slide.active{display:flex}
-.topline{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:4}
-.eyebrow{font:700 12px/1.2 Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--wine)}
-.kicker{font:600 12px/1.2 Arial,sans-serif;color:var(--muted)}
+.slide::before{content:"";position:absolute;inset:auto -8vw -15vh auto;width:42vw;height:28vh;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(36,56,67,.035));transform:translate3d(30px,20px,0);opacity:0;pointer-events:none}
+.slide.active::before{animation:ambientIn .85s var(--ease) forwards}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:10}
+.eyebrow{font:800 11px/1.2 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
+.kicker{font:700 11px/1.2 Arial,sans-serif;color:var(--muted)}
 h1,h2,h3,p{margin:0}
-h1{font-size:clamp(38px,6.2vw,86px);line-height:.95;letter-spacing:-.045em;max-width:900px}
-h2{font-size:clamp(31px,4.3vw,62px);line-height:1;letter-spacing:-.035em}
-h3{font-size:clamp(19px,2vw,28px);line-height:1.15}
-p,li{font-size:clamp(15px,1.55vw,22px);line-height:1.5}
+h1{font-size:clamp(44px,6.7vw,88px);line-height:.92;letter-spacing:-.048em;color:var(--navy)}
+h2{font-size:clamp(31px,4.6vw,62px);line-height:.98;letter-spacing:-.04em;color:var(--navy)}
+h3{font-size:clamp(18px,2vw,27px);line-height:1.14;color:var(--navy)}
+p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
 .small{font:500 13px/1.5 Arial,sans-serif;color:var(--muted)}
-.quote{font-size:clamp(25px,3.3vw,48px);line-height:1.12;max-width:850px;color:#403b35}
-.rule{height:1px;background:var(--line);width:100%}
-.btn{border:1px solid var(--line);background:rgba(255,253,248,.86);color:var(--ink);padding:10px 15px;border-radius:999px;cursor:pointer;box-shadow:0 4px 16px rgba(40,37,34,.06);font:700 12px Arial,sans-serif;letter-spacing:.03em}
-.btn:focus-visible,.nav:focus-visible{outline:3px solid #a6b9ab;outline-offset:3px}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,80px);align-items:center;flex:1;min-height:0}
-.hero-copy{display:flex;flex-direction:column;gap:22px;position:relative;z-index:2}
-.hero-image{height:min(65vh,610px);border-radius:34px;overflow:hidden;box-shadow:var(--shadow);position:relative;background:#ddd}
-.hero-image img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.72) sepia(.08)}
-.hero-image:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(31,27,24,.18))}
-.leaf{position:absolute;width:190px;height:190px;border:1px solid rgba(113,63,70,.16);border-radius:58% 42% 60% 40%;transform:rotate(28deg);right:-72px;bottom:-65px}
-.leaf:after{content:"";position:absolute;width:1px;height:140px;background:rgba(113,63,70,.18);left:50%;top:25px;transform:rotate(-28deg)}
-.section-layout{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(24px,5vw,72px);align-items:center;flex:1;min-height:0}
-.panel{background:rgba(255,253,248,.82);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,3vw,38px);box-shadow:0 8px 26px rgba(40,37,34,.06)}
-.photo{border-radius:var(--radius);overflow:hidden;min-height:310px;max-height:58vh;background:#ddd;position:relative}
-.photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.7) contrast(.97)}
-.photo .credit{position:absolute;left:12px;bottom:10px;padding:6px 9px;background:rgba(255,253,248,.86);border-radius:8px;font:10px Arial,sans-serif;color:#504b45}
-.list{display:grid;gap:12px;margin-top:22px}
-.list-item{display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
-.num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font:700 12px Arial,sans-serif}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
-.mini{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,253,248,.75);min-height:170px}
-.mini strong{display:block;color:var(--wine);font:700 11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-.mini p{font-size:clamp(15px,1.45vw,20px)}
-.path{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:30px;align-items:stretch}
-.step{position:relative;padding:18px 13px;background:rgba(255,253,248,.88);border:1px solid var(--line);border-radius:17px;min-height:145px}
-.step b{font:700 11px Arial,sans-serif;letter-spacing:.08em;color:var(--wine);text-transform:uppercase}
-.step span{display:block;margin-top:13px;font-size:clamp(17px,1.7vw,24px);line-height:1.15}
-.step em{display:block;margin-top:10px;font-size:12px;line-height:1.4;color:var(--muted);font-style:normal}
-.step:after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--gold);font:700 18px Arial,sans-serif;z-index:2}
-.step:last-child:after{display:none}
-.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
-.dos .panel{min-height:310px}
-.dos h3{color:var(--wine);margin-bottom:16px}
-ul.clean{padding:0;margin:0;list-style:none;display:grid;gap:13px}
-ul.clean li{padding-left:25px;position:relative}
-ul.clean li:before{position:absolute;left:0;top:0;font-family:Arial,sans-serif;font-weight:700}
-.yes li:before{content:"✓";color:var(--sage)} .no li:before{content:"×";color:var(--wine)}
-.mediums{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:24px}
-.medium{border:1px solid var(--line);background:rgba(255,253,248,.8);border-radius:20px;padding:22px;min-height:270px}
-.medium .icon{width:44px;height:44px;border-radius:12px;background:var(--sage2);display:grid;place-items:center;margin-bottom:20px;color:var(--sage);font:700 17px Arial,sans-serif}
-.medium h3{margin-bottom:9px}.medium p{font-size:15px;color:var(--muted)}
-.example-wrap{display:grid;grid-template-columns:.78fr 1.22fr;gap:26px;align-items:center;flex:1;min-height:0}
-.card-stage{min-height:0;height:min(67vh,680px);display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,#ece6db 0,#f4efe6 62%,transparent 63%);border-radius:30px}
-.cond-card{width:min(86%,610px);max-height:92%;overflow:hidden;background:#fffdf8;border:1px solid #d5cdc1;border-radius:5px;box-shadow:0 24px 50px rgba(55,46,39,.15);padding:clamp(28px,4vw,48px);position:relative}
-.cond-card:before,.cond-card:after{content:"";position:absolute;width:48px;height:48px;border:1px solid #c9bca9}
-.ref-example{width:min(92%,700px);background:#fff;border:8px solid transparent;border-radius:2px;padding:clamp(18px,2.4vw,28px);position:relative;box-shadow:0 18px 42px rgba(55,46,39,.14);background-image:linear-gradient(#fff,#fff),repeating-linear-gradient(45deg,#f0d64b 0 2px,transparent 2px 7px);background-origin:border-box;background-clip:padding-box,border-box}
-.ref-title{text-align:center;font:900 clamp(19px,2.1vw,30px)/1.08 Arial,sans-serif;letter-spacing:.025em;color:#101010}
-.ref-portrait{width:clamp(118px,16vw,170px);aspect-ratio:2/2.7;object-fit:cover;display:block;margin:12px auto 8px;filter:grayscale(1) contrast(.94);background:#eee}
-.ref-name{text-align:center;font:700 clamp(16px,1.7vw,23px)/1.18 Georgia,serif;color:#171717}
-.ref-dates{text-align:center;font:500 clamp(12px,1.25vw,17px)/1.3 Georgia,serif;margin-top:4px;color:#333}
-.ref-copy{margin-top:10px;color:#2b2927}
-.ref-copy p{font-size:clamp(12px,1.26vw,18px);line-height:1.35;margin-top:11px;text-align:left}
-.ref-sign{text-align:center;margin-top:10px;font:700 clamp(13px,1.35vw,18px)/1.3 Georgia,serif;color:#171717}
-.ref-symmetry{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
-.example-note{display:flex;gap:9px;align-items:center;margin-top:12px}.example-note .dot{flex:none}
-.print-example-slide .ref-example{max-height:none;overflow:visible;padding:20px}
-.print-example-slide .ref-portrait{width:clamp(105px,12vw,135px);height:auto;aspect-ratio:2/2.7}
-.print-example-slide .ref-copy p{font-size:clamp(12px,1.12vw,16px);line-height:1.28;margin-top:8px}
-@media print{
-  html,body{overflow:visible;background:#fff;height:auto}
-  .deck{width:auto;height:auto;min-height:0;overflow:visible;background:#fff}
-  .slide{position:static!important;display:none!important;opacity:1!important;visibility:visible!important;transform:none!important;min-height:0;height:auto;padding:0}
-  .slide.print-example-slide{display:flex!important;width:210mm;height:297mm;min-height:297mm;padding:9mm;page-break-after:always;background:#fff;align-items:center;justify-content:center}
-  .navbar,.footer,.progress{display:none!important}
-  .print-example-slide .ref-example{width:100%;max-width:none;box-shadow:none}
-}
-.cond-card:before{left:12px;top:12px;border-right:0;border-bottom:0}.cond-card:after{right:12px;bottom:12px;border-left:0;border-top:0}
-.ornament{text-align:center;color:var(--wine);font-size:25px;letter-spacing:9px;margin-bottom:5px}
-.card-title{text-align:center;font:700 13px/1.2 Arial,sans-serif;letter-spacing:.25em;color:var(--wine);text-transform:uppercase}
-.card-line{height:1px;background:#d9d0c3;margin:15px auto 22px;max-width:280px}
-.typed{font-size:clamp(15px,1.42vw,20px);line-height:1.6;color:#302d29;white-space:pre-wrap;min-height:300px}
-.typed p{margin:0 0 11px}
-.typing-active::after{content:"▌";display:inline-block;margin-left:2px;font-weight:700;animation:caretBlink .7s steps(1,end) infinite}@keyframes caretBlink{0%,48%{opacity:1}49%,100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.typing-active::after{animation:none;opacity:1}}
-.signature{margin-top:17px;padding-top:13px;border-top:1px solid #e0d8ce;font-size:14px;line-height:1.5;color:#4d4740}
-.card-controls{display:flex;gap:9px;justify-content:center;margin-top:12px;position:relative;z-index:2}
-.lesson-tags{display:grid;gap:10px}.tag{border:1px solid var(--line);background:rgba(255,253,248,.76);border-radius:14px;padding:13px 15px}.tag b{font:700 10px Arial,sans-serif;letter-spacing:.12em;color:var(--wine);text-transform:uppercase;display:block;margin-bottom:5px}
-.templates{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.template{background:rgba(255,253,248,.82);border:1px solid var(--line);border-radius:20px;padding:23px;min-height:300px}.template .audience{font:700 10px Arial,sans-serif;letter-spacing:.14em;color:var(--wine);text-transform:uppercase}.template h3{margin:9px 0 13px}.template p{font-size:15px;color:#514b44}
-.memory{display:grid;grid-template-columns:.9fr 1.1fr;gap:25px;align-items:center;flex:1;min-height:0}.memory-photo{height:min(62vh,590px);border-radius:28px;overflow:hidden}.memory-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(.1) saturate(.68)}
-.question-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}.q{background:rgba(255,253,248,.83);border:1px solid var(--line);border-radius:18px;padding:19px}.q h3{font-size:17px;margin-bottom:13px}.answers{display:flex;gap:8px;flex-wrap:wrap}.answer{border:1px solid var(--line);background:#f4efe6;border-radius:999px;padding:8px 12px;font:700 12px Arial,sans-serif;cursor:pointer}.answer.revealed{background:var(--sage2);border-color:#b8c8b7;color:#435145}
-.footer{position:fixed;left:clamp(22px,4vw,58px);right:clamp(22px,4vw,58px);bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:15px;z-index:10;font:11px Arial,sans-serif;color:var(--muted);background:rgba(247,243,235,.92);padding:6px 10px;border-radius:12px;backdrop-filter:blur(4px)}
-.progress{position:fixed;left:0;bottom:0;height:3px;background:var(--wine);width:0;transition:width .3s ease;z-index:12}
-.nav{border:0;background:rgba(255,253,248,.95);box-shadow:0 6px 20px rgba(40,37,34,.12);width:44px;height:44px;border-radius:50%;cursor:pointer;color:var(--ink);font:700 18px Arial,sans-serif}
-.navbar{position:fixed;right:clamp(22px,4vw,58px);bottom:50px;display:flex;gap:8px;z-index:11}
-.badge{display:inline-flex;align-items:center;gap:7px;font:700 11px Arial,sans-serif;color:var(--muted);letter-spacing:.06em}.dot{width:7px;height:7px;border-radius:50%;background:var(--sage)}
-.reveal{opacity:0;transform:translate3d(0,10px,0)}.active .reveal{animation:rise .55s var(--ease) forwards}.active .delay1{animation-delay:.08s}.active .delay2{animation-delay:.16s}.active .delay3{animation-delay:.24s}.active .delay4{animation-delay:.32s}
+.rule{width:90px;height:2px;background:var(--red);transform-origin:left center}
+.badge{display:inline-flex;align-items:center;gap:8px;font:800 11px Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--navy)}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block}
+.btn{border:1px solid var(--line);background:#fffdf9;color:var(--ink);padding:9px 13px;border-radius:999px;cursor:pointer;box-shadow:0 4px 14px rgba(35,43,48,.05);font:800 11px Arial,sans-serif;letter-spacing:.03em}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible,.nav:focus-visible,.answer:focus-visible{outline:3px solid #9db2a9;outline-offset:3px}
+.nav{border:0;background:#fffdf9;box-shadow:0 7px 18px rgba(35,43,48,.14);width:43px;height:43px;border-radius:50%;cursor:pointer;color:var(--ink);font:800 19px Arial,sans-serif}
+.navbar{position:fixed;right:clamp(18px,3.5vw,54px);bottom:44px;display:flex;gap:8px;z-index:30}
+.footer{position:fixed;left:clamp(18px,3.5vw,54px);right:clamp(18px,3.5vw,54px);bottom:11px;display:flex;justify-content:space-between;gap:16px;z-index:25;font:10px Arial,sans-serif;color:var(--muted);pointer-events:none}
+.progress{position:fixed;left:0;bottom:0;height:4px;background:var(--red);width:0;z-index:40;transform-origin:left center}
+.reveal{opacity:0;transform:translate3d(0,11px,0)}
+.active .reveal{animation:rise .52s var(--ease) forwards}
+.active .delay1{animation-delay:.07s}.active .delay2{animation-delay:.14s}.active .delay3{animation-delay:.21s}.active .delay4{animation-delay:.28s}.active .delay5{animation-delay:.35s}.active .delay6{animation-delay:.42s}
 @keyframes rise{to{opacity:1;transform:none}}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-.caret{display:inline-block;opacity:.5;animation:blink .9s steps(1,end) infinite}
-@keyframes blink{50%{opacity:0}}
+@keyframes ambientIn{to{opacity:1;transform:none}}
+@keyframes photoIn{from{opacity:0;transform:translate3d(18px,8px,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes cardPop{from{opacity:0;transform:translate3d(0,12px,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pulseOnce{0%{transform:scale(.985);box-shadow:0 0 0 0 rgba(160,68,61,0)}45%{transform:scale(1.01);box-shadow:0 0 0 8px rgba(160,68,61,.08)}100%{transform:scale(1);box-shadow:var(--shadow)}}
+@keyframes caret{50%{opacity:0}}
+@keyframes answerPop{from{transform:scale(.96)}to{transform:scale(1)}}
+@keyframes photoFloat{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+
+/* slide 1 */
+.hero{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(30px,6vw,90px);align-items:center;flex:1;min-height:0}
+.hero-copy{display:flex;flex-direction:column;gap:20px;max-width:860px;position:relative;z-index:2}
+.quote{font-size:clamp(27px,3.45vw,49px);line-height:1.12;max-width:850px;color:#3a4650}
+.quote-mark{color:var(--red);font-size:1.25em}
+.hero-photo{height:min(66vh,620px);position:relative}
+.hero-photo img{width:100%;height:100%;display:block;object-fit:cover;border-radius:34px;filter:saturate(.68) contrast(.98);animation:photoIn .78s var(--ease) .16s both}
+.hero-frame{position:absolute;inset:17px;border:1px solid rgba(255,255,255,.62);border-radius:24px;pointer-events:none}
+.hero-caption{position:absolute;left:20px;bottom:18px;padding:9px 12px;border-radius:999px;background:rgba(255,253,249,.93);font:800 10px Arial,sans-serif;letter-spacing:.09em;color:var(--navy)}
+
+/* slide 2 */
+.purpose{display:grid;grid-template-columns:1fr .86fr;gap:clamp(26px,5vw,72px);align-items:center;flex:1;min-height:0}
+.purpose-copy{display:flex;flex-direction:column;gap:18px}
+.purpose-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pcard{padding:19px 17px;border:1px solid var(--line);border-radius:18px;background:rgba(255,253,249,.86);min-height:152px;box-shadow:var(--shadow2)}
+.pcard b{display:block;font:800 10px Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.pcard span{display:block;font-size:18px;line-height:1.18}
+.requirement{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;border-left:4px solid var(--red);background:var(--red2);border-radius:12px;font:700 13px Arial,sans-serif}
+.purpose-photo{height:min(61vh,570px)}
+.photo{overflow:hidden;border-radius:28px;position:relative;background:#ddd;box-shadow:var(--shadow)}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.78) contrast(.98)}
+.image-missing{background:linear-gradient(145deg,#eee8de,#d9e0dc)!important}
+.image-missing::before{content:"Photo asset\A will appear here";white-space:pre;text-align:center;color:#5d686d;font:800 10px/1.35 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;position:absolute;inset:0;display:grid;place-items:center;padding:20px;z-index:2}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 56%,rgba(32,40,45,.20));pointer-events:none}
+.photo-badge{position:absolute;left:18px;top:18px;background:rgba(255,253,249,.9);padding:7px 9px;border-radius:999px;font:800 9px Arial,sans-serif;letter-spacing:.09em;color:var(--navy)}
+
+/* slide 3 */
+.rules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:22px;position:relative;z-index:1}
+.rule-box{display:grid;grid-template-columns:44px 1fr;gap:13px;align-items:start;padding:16px 17px;background:rgba(255,253,249,.88);border:1px solid var(--line);border-radius:17px;box-shadow:0 7px 18px rgba(36,56,67,.05)}
+.rule-num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font:800 11px Arial,sans-serif}
+.rule-box strong{font-size:17px;line-height:1.22;color:var(--navy)}.rule-box p{font-size:13px;color:var(--muted);margin-top:6px}.rule-note{margin-top:14px;max-width:720px;padding:11px 13px;background:var(--sage2);border-radius:11px;font:700 12px Arial,sans-serif;color:#455249}
+
+/* slide 4 */
+.sequence{display:grid;grid-template-columns:1fr .92fr;gap:clamp(24px,4vw,58px);align-items:center;flex:1;min-height:0}
+.sequence-list{display:grid;gap:10px}.seq{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,253,249,.84);box-shadow:0 6px 16px rgba(36,56,67,.04)}
+.seq .n{width:29px;height:29px;border-radius:50%;background:var(--red2);color:var(--red);display:grid;place-items:center;font:800 10px Arial,sans-serif}.seq b{display:block;font:800 10px Arial,sans-serif;letter-spacing:.11em;color:var(--red);text-transform:uppercase}.seq span{font-size:18px;line-height:1.16}.seq small{font:500 11px/1.35 Arial,sans-serif;color:var(--muted);text-align:right;max-width:170px}
+.sequence-visual{height:min(63vh,600px);position:relative}.paper-sheet{position:absolute;inset:6% 5% 4% 10%;background:#fffdf9;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:clamp(24px,3vw,40px)}.paper-sheet::before{content:"";position:absolute;inset:16px;border:1px solid rgba(36,56,67,.12);border-radius:4px;pointer-events:none}
+.paper-title{text-align:center;font:800 15px Arial,sans-serif;letter-spacing:.25em;color:var(--red);padding-top:10px}.paper-rule{height:1px;background:#dfd7ce;width:70%;margin:14px auto 22px}.paper-block{display:grid;gap:8px;margin-top:13px}.paper-line{height:10px;background:#eee7df;border-radius:99px}.paper-line.short{width:72%}.paper-line.mid{width:86%}
+.paper-chip{position:absolute;background:#fffdf9;border:1px solid var(--line);border-radius:13px;padding:10px 12px;box-shadow:var(--shadow2);font:800 10px Arial,sans-serif;color:var(--navy)}.paper-chip.one{right:-12px;top:22%}.paper-chip.two{left:-12px;bottom:13%;background:var(--sage2);border-color:#c8d5ce;color:#4b5c52}.paper-chip.three{right:14px;bottom:8%;background:var(--red2);border-color:#ddc1bc;color:#69443f}
+
+/* slide 5 */
+.build-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px;position:relative;z-index:1}.build-box{padding:18px 18px 20px;background:rgba(255,253,249,.88);border:1px solid var(--line);border-radius:20px;min-height:160px;box-shadow:0 7px 18px rgba(36,56,67,.05)}
+.build-box .tag{font:800 10px Arial,sans-serif;letter-spacing:.12em;color:var(--red);text-transform:uppercase}.build-box h3{margin-top:8px}.build-box p{font-size:14px;color:var(--muted);margin-top:8px}.build-box .sample{display:inline-block;margin-top:12px;padding:8px 10px;background:var(--paper2);border-radius:10px;font:700 12px/1.35 Georgia,serif;color:#3c4850}.build-box.accent{background:linear-gradient(180deg,#fffdfa 0%,#f7ece8 100%);border-color:#e0c7c1}.build-box:hover{transform:translateY(-2px)}
+
+/* slide 6 animated */
+.animated-grid{display:grid;grid-template-columns:.42fr .58fr;gap:24px;align-items:center;flex:1;min-height:0}.animated-side{display:flex;flex-direction:column;gap:14px}.animated-photo{height:min(33vh,300px)}
+.meta-strip{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}.date-chip{padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:#fffdf9;font:700 11px/1.25 Arial,sans-serif;color:var(--navy)}.date-chip span{display:block;color:var(--muted);font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px}.date-chip.right{text-align:right}
+.typing-stage{display:grid;place-items:center;min-height:0;height:min(71vh,710px);position:relative}.typing-card{width:min(98%,730px);max-height:96%;overflow:hidden;background:#fffdf9;border:1px solid #d6cdc1;border-radius:6px;padding:clamp(23px,3vw,38px);box-shadow:var(--shadow);position:relative;animation:pulseOnce 1.15s ease-out .25s both}.typing-card::before{content:"";position:absolute;inset:13px;border:1px solid rgba(36,56,67,.12);pointer-events:none}.typing-head{text-align:center;font:900 15px Arial,sans-serif;letter-spacing:.23em;color:var(--red)}.typing-photo-row{display:grid;grid-template-columns:1fr 122px 1fr;gap:10px;align-items:center;max-width:540px;margin:12px auto 7px}.typing-photo{width:122px;height:142px;border-radius:4px;overflow:hidden;background:#eee;position:relative;box-shadow:0 5px 16px rgba(0,0,0,.12)}.typing-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.16) saturate(.74)}
+.typing-date{font:700 10px/1.3 Georgia,serif;color:#47433f}.typing-date.right{text-align:left}.typing-date.left{text-align:right}.typing-sub{text-align:center;font:700 13px/1.25 Georgia,serif;color:var(--navy);margin-top:6px}.typing-rule{height:1px;background:#ded5cc;width:65%;margin:11px auto 16px;transform-origin:center center}.active .typing-rule{animation:lineGrow .55s var(--ease) .35s both}.typing-inner{margin-top:0;max-height:38vh;overflow:hidden}.typing-p{font-size:clamp(12px,1.23vw,17px);line-height:1.42;margin:0 0 11px;color:#283136}.typing-caret{display:inline-block;color:var(--red);animation:caret .7s steps(1,end) infinite}.typing-sign{text-align:center;margin-top:12px;font:700 11px/1.4 Georgia,serif;color:#4d4a48}.typing-tools{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:10px}
+.nims-placeholder{position:absolute;inset:0;display:none;place-items:center;text-align:center;background:linear-gradient(145deg,#ece5da,#d9d0c3);color:#5d554e;font:700 10px/1.35 Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:8px}.nims-placeholder strong{font-size:12px;color:#4b3b48}
+
+/* slide 7 */
+.identify{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;align-items:stretch;flex:1;min-height:0;margin-top:22px}.identify-list{display:grid;gap:9px;align-content:start}.idrow{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:12px 13px;border:1px solid var(--line);border-radius:15px;background:rgba(255,253,249,.84)}.idrow .n{width:27px;height:27px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 9px Arial,sans-serif}.idrow b{font-size:14px;color:var(--navy)}.idrow p{font-size:12px;color:var(--muted);margin-top:3px}
+.identify-photo{min-height:400px;overflow:hidden;border-radius:28px;position:relative;box-shadow:var(--shadow)}.identify-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.7)}.identify-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(36,56,67,.50),rgba(36,56,67,.04) 65%);pointer-events:none}.identify-title{position:absolute;left:22px;top:20px;color:#fff;max-width:370px}.identify-title b{display:block;font:800 11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}.identify-title span{display:block;font-size:clamp(28px,3vw,44px);line-height:.98;margin-top:6px}
+
+/* slide 8 */
+.questions{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:22px;position:relative;z-index:1}.q{background:rgba(255,253,249,.88);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 7px 18px rgba(36,56,67,.04)}.q h3{font-size:16px;margin-bottom:11px}.answers{display:flex;flex-wrap:wrap;gap:7px}.answer{border:1px solid var(--line);background:var(--paper2);border-radius:999px;padding:8px 11px;cursor:pointer;font:800 11px Arial,sans-serif;color:#4b5156;transition:transform .16s ease,background .16s ease,border-color .16s ease}.answer:hover{transform:translateY(-1px)}.answer.good{background:var(--sage2);border-color:#b8c8be;color:#3d5345}.answer.bad{background:#f1dfdc;border-color:#dfb8b1;color:#714a44}.answer.good,.answer.bad{animation:answerPop .24s ease-out}.final-remember{margin-top:15px;padding:14px 15px;border-radius:14px;background:var(--navy);color:#fff;text-align:center;font:800 13px/1.45 Arial,sans-serif;box-shadow:0 10px 22px rgba(36,56,67,.18)}
+
+.notes{position:fixed;inset:0;background:rgba(30,36,40,.38);display:none;place-items:center;z-index:50;padding:20px}.notes.open{display:grid}.notes-panel{max-width:720px;width:100%;max-height:80vh;overflow:auto;background:var(--paper);border-radius:20px;padding:24px;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.22)}.notes-panel h3{color:var(--navy);margin-bottom:10px}.notes-panel p{font-size:15px}.notes-panel .btn{margin-top:14px}
+
 @media (max-width:900px){
-  .hero-grid,.section-layout,.example-wrap,.memory{grid-template-columns:1fr}.hero-image{display:none}.section-layout .photo{max-height:33vh;min-height:180px}.path{grid-template-columns:repeat(2,1fr)}.step:after{display:none}.cards,.templates,.mediums{grid-template-columns:1fr}.medium{min-height:auto}.dos{grid-template-columns:1fr}.dos .panel{min-height:auto}.card-stage{height:auto;min-height:62vh}.lesson-tags{grid-template-columns:1fr 1fr}.memory-photo{height:34vh}.question-grid{grid-template-columns:1fr}.slide{padding-bottom:100px}
-}
+  .hero,.purpose,.sequence,.animated-grid,.identify{grid-template-columns:1fr}.hero-photo,.purpose-photo{height:24vh;min-height:180px;order:-1}.purpose-cards{grid-template-columns:1fr}.rules-grid,.build-grid,.questions{grid-template-columns:1fr}.sequence-visual,.identify-photo{display:none}.animated-side{display:grid;grid-template-columns:1fr 1fr}.animated-side>div:first-child{grid-column:1/-1}.animated-photo{height:145px}.typing-stage{height:67vh}.typing-inner{max-height:39vh}.slide{padding-bottom:82px}.footer{bottom:7px}.navbar{bottom:35px}}
 @media (max-width:620px){
-  h1{font-size:42px}.quote{font-size:26px}.section-layout .photo{display:none}.path{grid-template-columns:1fr}.lesson-tags{grid-template-columns:1fr}.card-stage{height:auto;min-height:62vh}.cond-card{width:96%;padding:22px}.ref-example{width:98%;padding:17px}.ref-copy p{font-size:13px;line-height:1.3}.typed{font-size:14px;line-height:1.48;min-height:250px}.footer{bottom:8px}.navbar{bottom:40px}.topline .kicker{display:none}
-}
-@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+  h1{font-size:42px}.quote{font-size:26px}.topline .kicker{display:none}.hero-photo{height:24vh}.rule-box{grid-template-columns:34px 1fr}.rule-num{width:31px;height:31px}.seq{grid-template-columns:30px 1fr}.seq small{display:none}.build-box{min-height:auto}.animated-side{display:block}.animated-photo{height:145px;margin:8px 0}.typing-stage{height:61vh}.typing-card{width:98%;padding:21px 17px}.typing-inner{max-height:34vh}.typing-p{font-size:13px;line-height:1.4}.typing-photo-row{grid-template-columns:1fr 86px 1fr}.typing-photo{width:86px;height:100px}.typing-date{font-size:9px}.typing-sub{font-size:12px}.navbar{bottom:13px}.nav{width:40px;height:40px}.footer{display:none}.questions{margin-bottom:8px}}
+@media print{body{overflow:visible}.deck{height:auto}.slide{position:relative!important;display:flex!important;page-break-after:always;min-height:100vh}.navbar,.footer,.progress,.notes{display:none!important}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}.typing-caret{animation:none}}
 </style>
 </head>
 <body>
-<main class="deck" id="deck" aria-label="Writing Messages of Condolence presentation">
+<main class="deck" id="deck" aria-label="Writing Messages of Condolence classroom presentation">
 
-<section class="slide active" aria-label="Opening quote">
-  <div class="topline"><span class="eyebrow">English • Guided Writing</span><span class="kicker">01 / 11</span></div>
-  <div class="hero-grid">
+<!-- 01 -->
+<section class="slide active" data-notes="Read the quote, pause briefly, then introduce the topic. Keep the opening under 20 seconds.">
+  <div class="topline"><span class="eyebrow">English • Guided Writing</span><span class="kicker">01 / 08</span></div>
+  <div class="hero">
     <div class="hero-copy">
-      <div class="badge reveal"><span class="dot"></span> A respectful writing lesson</div>
-      <p class="quote reveal delay1">“Sometimes, the simplest words carry the deepest sympathy.”</p>
+      <div class="badge reveal"><i></i> Classroom presentation</div>
+      <p class="quote reveal delay1"><span class="quote-mark">“</span>Sometimes, the simplest words carry the deepest sympathy.</p>
       <div class="rule reveal delay2"></div>
       <h1 class="reveal delay3">Writing Messages<br>of Condolence</h1>
-      <p class="small reveal delay4">Format • tone • useful expressions • examples</p>
+      <p class="small reveal delay4">Rules • format • examples • Nimsdai</p>
     </div>
-    <div class="hero-image reveal delay2">
-      <img src="https://images.pexels.com/photos/4544724/pexels-photo-4544724.jpeg?auto=compress&dpr=1&w=1260" alt="Handwritten letter surrounded by leaves and small white flowers" loading="eager">
-      <div class="leaf" aria-hidden="true"></div>
+    <div class="hero-photo reveal delay2" aria-hidden="true">
+      <img src="assets/flowers.jpg" data-fallback="https://images.pexels.com/photos/6907845/pexels-photo-6907845.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Hands holding flowers" loading="eager" decoding="async">
+      <div class="hero-frame"></div><div class="hero-caption">WORDS • RESPECT • SYMPATHY</div>
     </div>
   </div>
 </section>
 
-<section class="slide" aria-label="Purpose and emotional weight">
-  <div class="topline"><span class="eyebrow">01 • Why it matters</span><span class="kicker">02 / 11</span></div>
-  <div class="section-layout">
-    <div class="panel reveal">
-      <h2>A few words can carry a lot of care.</h2>
-      <p class="small" style="margin-top:18px">A condolence message does not remove grief. It simply tells someone: <em>you are not alone.</em></p>
-      <div class="cards">
-        <div class="mini"><strong>Express</strong><p>Say that you are genuinely sorry for the loss.</p></div>
-        <div class="mini"><strong>Remember</strong><p>Honor the person with one respectful detail.</p></div>
-        <div class="mini"><strong>Support</strong><p>Offer warmth, prayer or quiet encouragement.</p></div>
+<!-- 02 -->
+<section class="slide" data-notes="Define the task briefly. The class requirement is 75–100 words.">
+  <div class="topline"><span class="eyebrow">01 • What it is</span><span class="kicker">02 / 08</span></div>
+  <div class="purpose">
+    <div class="purpose-copy">
+      <div class="reveal"><span class="badge"><i></i> In one sentence</span><h2 style="margin-top:8px">A condolence message expresses grief, sympathy and comfort after a death.</h2></div>
+      <div class="purpose-cards">
+        <div class="pcard reveal delay1"><b>Express</b><span>Show genuine grief and sympathy.</span></div>
+        <div class="pcard reveal delay2"><b>Remember</b><span>Say one or two respectful things about the deceased.</span></div>
+        <div class="pcard reveal delay3"><b>Comfort</b><span>Offer prayer and kind words to the family.</span></div>
+      </div>
+      <div class="requirement reveal delay4"><span>Class requirement</span><strong>75–100 words</strong></div>
+    </div>
+    <div class="photo purpose-photo reveal delay2"><img src="assets/writing.jpg" data-fallback="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1000&q=72" alt="Pen and handwritten work on paper" loading="lazy" decoding="async"><span class="photo-badge">WRITE WITH CARE</span></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="slide" data-notes="These are the six points from the supplied textbook page. Read them as the rules to remember.">
+  <div class="topline"><span class="eyebrow">02 • Points to remember</span><span class="kicker">03 / 08</span></div>
+  <div class="reveal" style="margin-top:18px"><h2>The six points from the lesson.</h2><p class="small" style="margin-top:7px">Short, direct and easy to remember.</p></div>
+  <div class="rules-grid">
+    <div class="rule-box reveal delay1"><span class="rule-num">01</span><div><strong>Express your grief and sympathy in the first sentence.</strong><p>Start directly and sincerely.</p></div></div>
+    <div class="rule-box reveal delay2"><span class="rule-num">02</span><div><strong>Write one or two sentences about the deceased.</strong><p>Mention a respectful quality, work or contribution.</p></div></div>
+    <div class="rule-box reveal delay3"><span class="rule-num">03</span><div><strong>Express your condolences to the bereaved family.</strong><p>Keep the sympathy clear and formal.</p></div></div>
+    <div class="rule-box reveal delay4"><span class="rule-num">04</span><div><strong>Pray for the departed soul.</strong><p>Use a brief and respectful prayer.</p></div></div>
+    <div class="rule-box reveal delay5"><span class="rule-num">05</span><div><strong>Write words that help relatives overcome their grief.</strong><p>Offer strength, hope and comfort.</p></div></div>
+    <div class="rule-box reveal delay6"><span class="rule-num">06</span><div><strong>Write your name and address.</strong><p>Finish with the sender’s details.</p></div></div>
+  </div>
+  <div class="rule-note reveal delay6">Remember: <strong>75–100 words</strong> • respectful tone • no unnecessary detail</div>
+</section>
+
+<!-- 04 -->
+<section class="slide" data-notes="Show the six-part sequence as the easiest way to remember the format before seeing the example.">
+  <div class="topline"><span class="eyebrow">03 • Format</span><span class="kicker">04 / 08</span></div>
+  <div class="sequence">
+    <div class="sequence-list">
+      <div class="seq reveal delay1"><span class="n">1</span><div><b>Opening</b><span>Grief + sympathy</span></div><small>Start immediately.</small></div>
+      <div class="seq reveal delay2"><span class="n">2</span><div><b>Deceased</b><span>One or two sentences</span></div><small>Quality • work • contribution</small></div>
+      <div class="seq reveal delay3"><span class="n">3</span><div><b>Condolence</b><span>Sympathy to the family</span></div><small>Clear and formal.</small></div>
+      <div class="seq reveal delay4"><span class="n">4</span><div><b>Prayer</b><span>Departed soul</span></div><small>Brief and respectful.</small></div>
+      <div class="seq reveal delay5"><span class="n">5</span><div><b>Comfort</b><span>Support the relatives</span></div><small>Strength and hope.</small></div>
+      <div class="seq reveal delay6"><span class="n">6</span><div><b>Ending</b><span>Name + address</span></div><small>Sender’s details.</small></div>
+    </div>
+    <div class="sequence-visual reveal delay2" aria-hidden="true">
+      <div class="paper-sheet">
+        <div class="paper-title">CONDOLENCE</div><div class="paper-rule"></div>
+        <div class="paper-block"><div class="paper-line mid"></div><div class="paper-line"></div><div class="paper-line short"></div></div>
+        <div class="paper-block"><div class="paper-line"></div><div class="paper-line mid"></div><div class="paper-line short"></div></div>
+        <div class="paper-block"><div class="paper-line mid"></div><div class="paper-line"></div><div class="paper-line short"></div></div>
+        <div class="paper-chip one">75–100 words</div><div class="paper-chip two">6 parts</div><div class="paper-chip three">Respectful tone</div>
       </div>
     </div>
-    <div class="photo reveal delay1">
-      <img src="https://images.unsplash.com/photo-1782825553626-165d4693180b?auto=format&fit=crop&fm=jpg&q=72&w=1200" alt="Peaceful lavender field under a cloudy sky" loading="lazy">
-      <span class="credit">Photo: Jonas Eriksson / Unsplash</span>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="slide" data-notes="This slide contains only the six writing instructions. Do not reveal the Nimsdai example yet.">
+  <div class="topline"><span class="eyebrow">04 • Build the message</span><span class="kicker">05 / 08</span></div>
+  <div class="reveal" style="margin-top:18px"><h2>What goes into each part?</h2><p class="small" style="margin-top:7px">Each box is one simple writing job.</p></div>
+  <div class="build-grid">
+    <div class="build-box reveal delay1"><div class="tag">01 • Opening</div><h3>Start with sympathy.</h3><p>Say clearly that you are sorry for the loss.</p><span class="sample">“We were deeply saddened to hear…”</span></div>
+    <div class="build-box reveal delay2"><div class="tag">02 • Deceased</div><h3>Say something respectful.</h3><p>Use one or two sentences about the person.</p><span class="sample">“He was kind, honest and hardworking.”</span></div>
+    <div class="build-box reveal delay3"><div class="tag">03 • Condolence</div><h3>Address the family.</h3><p>Express sincere sympathy to those who are grieving.</p><span class="sample">“Please accept our heartfelt condolences.”</span></div>
+    <div class="build-box reveal delay4"><div class="tag">04 • Prayer</div><h3>Pray for the departed soul.</h3><p>Keep the prayer brief and respectful.</p><span class="sample">“May the departed soul rest in peace.”</span></div>
+    <div class="build-box reveal delay5"><div class="tag">05 • Comfort</div><h3>Offer strength.</h3><p>Help the relatives through the difficult time.</p><span class="sample">“May you find strength and comfort.”</span></div>
+    <div class="build-box accent reveal delay6"><div class="tag">06 • Ending</div><h3>Finish properly.</h3><p>Write your name and address after the message.</p><span class="sample">“With deepest sympathy, …”</span></div>
+  </div>
+</section>
+
+<!-- 06 ANIMATED -->
+<section class="slide" data-animated="true" data-notes="This is the main visual example. Let the portrait, dates and heading appear first, then let the three paragraphs write themselves. Use Reveal all if you want to finish early.">
+  <div class="topline"><span class="eyebrow">05 • Animated example</span><span class="kicker">06 / 08</span></div>
+  <div class="animated-grid">
+    <div class="animated-side">
+      <div class="reveal"><span class="badge"><i></i> Nirmal “Nimsdai” Purja</span><h2 style="margin-top:8px">Watch the message write itself.</h2><p class="small" style="margin-top:10px">The portrait, dates and name are shown first. The message then appears paragraph by paragraph.</p></div>
+      <div class="photo animated-photo reveal delay1"><img src="assets/mountains.jpg" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=72" alt="Snow-covered mountain landscape" loading="lazy" decoding="async"><span class="photo-badge">REMEMBER • HONOUR • COMFORT</span></div>
+      <div class="write-tools reveal delay2"><button class="btn" id="replayBtn">Replay writing</button><button class="btn" id="revealBtn">Reveal all</button></div>
     </div>
-  </div>
-</section>
-
-<section class="slide" aria-label="Reference format">
-  <div class="topline"><span class="eyebrow">02 • Reference format</span><span class="kicker">03 / 11</span></div>
-  <div style="margin-top:20px" class="reveal"><h2>Follow the printed-example format exactly.</h2><p class="small" style="margin-top:8px">Title → portrait → deceased person → dates → three focused paragraphs → organization name.</p></div>
-  <div class="path">
-    <div class="step reveal delay1"><b>01 • Title</b><span>HEARTFELT CONDOLENCES!</span><em>Centered, bold and prominent.</em></div>
-    <div class="step reveal delay2"><b>02 • Portrait</b><span>One centered photo</span><em>Grayscale, formal and uncluttered.</em></div>
-    <div class="step reveal delay3"><b>03 • Identity</b><span>Late + full name</span><em>D.O.B. and D.O.D. directly underneath.</em></div>
-    <div class="step reveal delay4"><b>04 • Main message</b><span>Three paragraphs</span><em>Focus on the deceased person, life and contribution.</em></div>
-    <div class="step reveal delay4"><b>05 • Sign-off</b><span>Organization / sender</span><em>Centered beneath the final paragraph.</em></div>
-  </div>
-  <div class="panel reveal delay4" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:20px"><strong style="font:700 12px Arial,sans-serif;letter-spacing:.1em;color:var(--wine)">FORMAT RULE</strong><span class="small">The message is primarily about the deceased person; condolences appear only in the final paragraph.</span></div>
-</section>
-
-<section class="slide" aria-label="Rules to remember">
-  <div class="topline"><span class="eyebrow">03 • Do’s & Don’ts</span><span class="kicker">04 / 11</span></div>
-  <div style="margin-top:24px" class="reveal"><h2>Kind words are also careful words.</h2></div>
-  <div class="dos">
-    <div class="panel reveal delay1"><h3>Do</h3><ul class="clean yes"><li>Be sincere and specific.</li><li>Keep the tone gentle and respectful.</li><li>Mention one positive quality or memory.</li><li>Offer support without demanding a response.</li><li>Check names, relationships and spelling.</li></ul></div>
-    <div class="panel reveal delay2"><h3>Don’t</h3><ul class="clean no"><li>Use clichés such as “everything happens for a reason.”</li><li>Make the message about your own grief.</li><li>Ask intrusive questions about the death.</li><li>Give advice the family did not ask for.</li><li>Use humor, casual slang or excessive detail.</li></ul></div>
-  </div>
-  <p class="small reveal delay3" style="margin-top:15px">Rule of thumb: <strong>comfort, don’t explain.</strong></p>
-</section>
-
-<section class="slide" aria-label="Mediums of delivery">
-  <div class="topline"><span class="eyebrow">04 • Mediums of delivery</span><span class="kicker">05 / 11</span></div>
-  <div style="margin-top:24px" class="reveal"><h2>The medium changes the tone — not the kindness.</h2></div>
-  <div class="mediums">
-    <div class="medium reveal delay1"><div class="icon">✦</div><h3>Handwritten card</h3><p>Best when you want a tangible, personal gesture. Keep handwriting clear, the message concise and the design restrained.</p><p class="small" style="margin-top:16px">Best for: family, close friends, formal condolences.</p></div>
-    <div class="medium reveal delay2"><div class="icon">@</div><h3>Email</h3><p>Useful when distance or timing matters. Use a clear subject line, short paragraphs and a respectful sign-off.</p><p class="small" style="margin-top:16px">Best for: colleagues, teachers, distant contacts.</p></div>
-    <div class="medium reveal delay3"><div class="icon">•••</div><h3>Social message</h3><p>Public spaces need extra restraint. Keep it brief and avoid private details; offer to speak privately if appropriate.</p><p class="small" style="margin-top:16px">Best for: a short public acknowledgment.</p></div>
-  </div>
-</section>
-
-<!-- SLIDE 6: STATIC EXAMPLE (no animation) -->
-<section class="slide" aria-label="Static example card">
-  <div class="topline"><span class="eyebrow">05 • Static example</span><span class="kicker">06 / 11</span></div>
-  <div class="example-wrap">
-    <div class="reveal">
-      <p class="eyebrow">The example follows the reference page</p>
-      <h2 style="margin-top:10px">A complete condolence notice.</h2>
-      <p class="small" style="margin-top:16px">This is the full message, ready to read. The animated version appears on the next slide.</p>
-      <div class="lesson-tags" style="margin-top:22px">
-        <div class="tag"><b>Person first</b>Describe the deceased and their contribution.</div>
-        <div class="tag"><b>Three paragraphs</b>Keep the notice formal, focused and readable.</div>
-        <div class="tag"><b>Final line</b>Condolences + prayer, then organization name.</div>
-      </div>
-    </div>
-    <div class="card-stage reveal delay1">
-      <article class="cond-card ref-example">
-        <div class="ref-title">HEARTFELT CONDOLENCES!</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin:12px 0 8px;flex-wrap:wrap">
-          <div style="font:500 clamp(11px,1.1vw,15px)/1.3 Georgia,serif;color:#333;text-align:right;min-width:110px">D.O.B. 25 July 1983</div>
-          <img class="ref-portrait" style="margin:0;width:clamp(100px,11vw,130px);height:auto;aspect-ratio:2/2.7" src="nims.jpg" alt="Portrait of Nirmal Purja">
-          <div style="font:500 clamp(11px,1.1vw,15px)/1.3 Georgia,serif;color:#333;text-align:left;min-width:110px">D.O.D. 30 July 2026</div>
+    <div class="typing-stage reveal delay2">
+      <article class="typing-card" aria-label="Animated sample condolence notice for Nirmal Nimsdai Purja">
+        <div class="typing-head">CONDOLENCE</div>
+        <div class="typing-photo-row">
+          <div class="typing-date left"><span style="display:block;font:700 9px Arial,sans-serif;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px">Birth</span><strong>25 July 1983</strong></div>
+          <div class="typing-photo"><img src="nims.jpg" alt="Portrait of Nirmal Nimsdai Purja" loading="eager" decoding="async"><div class="nims-placeholder" aria-hidden="true">Add<br><strong>nims.jpg</strong><br>beside index.html</div></div>
+          <div class="typing-date right"><span style="display:block;font:700 9px Arial,sans-serif;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px">Death</span><strong>30 July 2026</strong></div>
         </div>
-        <div class="ref-name">Late Mr. Nirmal Purja (Nimsdai)</div>
-        <div class="ref-copy">
-          <p>We are deeply saddened to share the sudden passing away of Mr. Nirmal Purja, a world-renowned mountaineer, former Gurkha and Special Boat Service soldier, and a source of immense pride for Nepal. He devoted his life to pushing the boundaries of human endurance and inspiring people around the world to believe that nothing is impossible.</p>
-          <p>Mr. Purja was known for his extraordinary courage, determination and humility. He set a world record by climbing all fourteen of the world's 8,000-metre peaks in just six months and six days in 2019, a feat chronicled in the Netflix documentary "14 Peaks: Nothing Is Impossible." He also led the historic first winter ascent of K2 with an all-Nepali team and championed greater recognition for Nepali climbers.</p>
-          <p>We are deeply grieved by the loss of such a distinguished and inspiring person. We extend our heartfelt condolences to all who mourn his passing. His contribution, character and service will be remembered with gratitude. May his departed soul rest in eternal peace.</p>
-        </div>
-        <div class="ref-sign">Nepal Mountaineering Association</div>
+        <div class="typing-sub">Late Mr. Nirmal “Nimsdai” Purja</div>
+        <div class="typing-rule"></div>
+        <div class="typing-inner" id="typingHolder" aria-live="polite"></div>
+        <div class="typing-sign" id="typingSign" hidden>Sample School English Club<br>Kathmandu, Nepal</div>
+        <div class="typing-tools"><span class="badge" style="font-size:9px"><i></i> 89 words</span></div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 7: ANIMATED EXAMPLE (with typing animation, scrollable) -->
-<section class="slide print-example-slide" aria-label="Animated example card">
-  <div style="width:100%;display:flex;justify-content:center;padding:10px 0 60px">
-  <div class="ref-example" style="max-height:none;overflow:visible;padding:clamp(18px,2.4vw,28px)">
-    <div class="ref-title">HEARTFELT CONDOLENCES!</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin:12px 0 8px;flex-wrap:wrap">
-      <div style="font:500 clamp(12px,1.25vw,17px)/1.3 Georgia,serif;color:#333;text-align:right;min-width:130px">D.O.B. 25 July 1983</div>
-      <img class="ref-portrait" style="margin:0;width:clamp(105px,12vw,135px);height:auto;aspect-ratio:2/2.7" src="nims.jpg" alt="Portrait of Nirmal Purja">
-      <div style="font:500 clamp(12px,1.25vw,17px)/1.3 Georgia,serif;color:#333;text-align:left;min-width:130px">D.O.D. 30 July 2026</div>
+<!-- 07 -->
+<section class="slide" data-notes="Ask students to identify the six parts. Point from the opening sentence through the final name and address.">
+  <div class="topline"><span class="eyebrow">06 • See the structure</span><span class="kicker">07 / 08</span></div>
+  <div class="reveal" style="margin-top:18px"><h2>Can you spot the six parts?</h2><p class="small" style="margin-top:7px">Read the example in this order.</p></div>
+  <div class="identify">
+    <div class="identify-list">
+      <div class="idrow reveal delay1"><span class="n">1</span><div><b>Grief + sympathy</b><p>“We are deeply saddened…”</p></div></div>
+      <div class="idrow reveal delay2"><span class="n">2</span><div><b>About the deceased</b><p>Who he was and what he achieved.</p></div></div>
+      <div class="idrow reveal delay3"><span class="n">3</span><div><b>Condolence</b><p>“We extend our heartfelt condolences…”</p></div></div>
+      <div class="idrow reveal delay4"><span class="n">4</span><div><b>Prayer</b><p>“May his departed soul rest in peace.”</p></div></div>
+      <div class="idrow reveal delay5"><span class="n">5</span><div><b>Comfort</b><p>Hope and support for the relatives.</p></div></div>
+      <div class="idrow reveal delay6"><span class="n">6</span><div><b>Name + address</b><p>Write the sender’s details at the end.</p></div></div>
     </div>
-    <div class="ref-name">Late Mr. Nirmal Purja (Nimsdai)</div>
-    <div class="ref-copy" id="typedText"></div>
-    <div class="ref-sign" id="signature" hidden>Nepal Mountaineering Association</div>
-    <div class="card-controls" style="margin-top:12px">
-      <button class="btn" id="replayBtn">Replay writing</button>
-      <button class="btn" id="revealBtn">Reveal all</button>
-    </div>
-  </div>
-  </div>
-</section>
-
-<section class="slide" aria-label="Example format guide">
-  <div class="topline"><span class="eyebrow">06 • Example format guide</span><span class="kicker">08 / 11</span></div>
-  <div class="section-layout">
-    <div class="panel reveal">
-      <p class="eyebrow">Read the same page as a writing model</p>
-      <h2 style="margin-top:10px">Seven visible elements.</h2>
-      <div class="list">
-        <div class="list-item"><span class="num">1</span><div><strong>HEARTFELT CONDOLENCES!</strong><p class="small">Main title.</p></div></div>
-        <div class="list-item"><span class="num">2</span><div><strong>Portrait</strong><p class="small">One formal image of the deceased.</p></div></div>
-        <div class="list-item"><span class="num">3</span><div><strong>Late + full name</strong><p class="small">Identify the deceased clearly.</p></div></div>
-        <div class="list-item"><span class="num">4</span><div><strong>D.O.B. + D.O.D.</strong><p class="small">Place the dates directly beneath the name.</p></div></div>
-        <div class="list-item"><span class="num">5</span><div><strong>Three paragraphs</strong><p class="small">Describe the person, work, character and contribution.</p></div></div>
-        <div class="list-item"><span class="num">6</span><div><strong>Final condolence + prayer</strong><p class="small">Keep family reference to the final paragraph.</p></div></div>
-        <div class="list-item"><span class="num">7</span><div><strong>Organization / sender</strong><p class="small">Centered at the bottom.</p></div></div>
-      </div>
-    </div>
-    <div class="panel reveal delay1" style="display:grid;place-items:center;background:#f4efe6;border-radius:24px;padding:20px;overflow:auto">
-      <div style="width:100%;max-height:none;overflow:visible;background:#fff;border:6px solid transparent;border-radius:2px;box-shadow:0 18px 42px rgba(55,46,39,.14);background-image:linear-gradient(#fff,#fff),repeating-linear-gradient(45deg,#f0d64b 0 2px,transparent 2px 7px);background-origin:border-box;background-clip:padding-box,border-box;padding:clamp(18px,2.4vw,28px)">
-        <div class="ref-title">HEARTFELT CONDOLENCES!</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0 8px;flex-wrap:wrap">
-          <div style="font:500 clamp(11px,1.1vw,15px)/1.3 Georgia,serif;color:#333;text-align:right;min-width:100px">D.O.B. 25 July 1983</div>
-          <img class="ref-portrait" style="margin:0;width:clamp(95px,10vw,120px);height:auto;aspect-ratio:2/2.7" src="nims.jpg" alt="Portrait of Nirmal Purja" loading="lazy">
-          <div style="font:500 clamp(11px,1.1vw,15px)/1.3 Georgia,serif;color:#333;text-align:left;min-width:100px">D.O.D. 30 July 2026</div>
-        </div>
-        <div class="ref-name">Late Mr. Nirmal Purja (Nimsdai)</div>
-        <div class="ref-copy">
-          <p>We are deeply saddened to share the sudden passing away of Mr. Nirmal Purja, a world-renowned mountaineer and a source of immense pride for Nepal.</p>
-          <p>He was known for his extraordinary courage, determination and humility. He set a world record by climbing all fourteen 8,000-metre peaks in six months and six days in 2019.</p>
-          <p>We extend our heartfelt condolences to all who mourn his passing. His life and contribution will be remembered with gratitude. May his departed soul rest in peace.</p>
-        </div>
-        <div class="ref-sign">Nepal Mountaineering Association</div>
-      </div>
+    <div class="identify-photo reveal delay2">
+      <img src="assets/mountains.jpg" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=72" alt="Snow mountain landscape" loading="lazy" decoding="async">
+      <div class="identify-overlay"></div>
+      <div class="identify-title"><b>Nimsdai example</b><span>The message is short.<br>The structure does the work.</span></div>
     </div>
   </div>
 </section>
 
-<section class="slide" aria-label="Ready to use templates">
-  <div class="topline"><span class="eyebrow">07 • Ready-to-use examples</span><span class="kicker">09 / 11</span></div>
-  <div style="margin-top:24px" class="reveal"><h2>Keep the focus on the deceased.</h2><p class="small" style="margin-top:9px">Each example follows the same three-paragraph idea: life, character, contribution — then condolence and prayer.</p></div>
-  <div class="templates">
-    <article class="template reveal delay1"><span class="audience">Friend’s parent</span><h3>Warm + personal</h3><p>“We were deeply saddened by the passing of Mr. Arun Rai, a gentle and generous teacher. He was admired for his patience, his love of books and the encouragement he gave to young people. His contribution to education will be remembered with gratitude. We extend our heartfelt condolences to all who mourn him. May his departed soul rest in peace.”</p></article>
-    <article class="template reveal delay2"><span class="audience">Colleague</span><h3>Formal + dignified</h3><p>“It was with great sadness that we learned of the passing of Ms. Mira Kandel, a dedicated professional and respected mentor. Her careful work, integrity and willingness to guide others made a lasting contribution to our institution. We extend our sincere condolences to those who mourn her loss. May her departed soul rest in eternal peace.”</p></article>
-    <article class="template reveal delay3"><span class="audience">Distant relative</span><h3>Respectful + concise</h3><p>“We were deeply saddened to hear of the passing of Mr. Hari Bahadur Joshi, a respected member of our extended family and community. He was remembered for his humility, kindness and strong sense of service. We offer our heartfelt condolences to all who mourn him and pray that his departed soul may rest in peace.”</p></article>
+<!-- 08 -->
+<section class="slide" data-notes="Ask the class to answer aloud before anyone taps. Reveal the correct choice. End by reading the final six-part sequence once.">
+  <div class="topline"><span class="eyebrow">07 • Class challenge</span><span class="kicker">08 / 08</span></div>
+  <div class="reveal" style="margin-top:18px"><h2>Let’s see what you remember.</h2><p class="small" style="margin-top:7px">Answer first. Tap second.</p></div>
+  <div class="questions">
+    <div class="q reveal delay1"><h3>1. What should the first sentence express?</h3><div class="answers"><button class="answer" data-correct="false">A story</button><button class="answer" data-correct="true">Grief & sympathy</button><button class="answer" data-correct="false">Advice</button></div></div>
+    <div class="q reveal delay2"><h3>2. What is the word limit?</h3><div class="answers"><button class="answer" data-correct="false">20–30</button><button class="answer" data-correct="true">75–100</button><button class="answer" data-correct="false">150–200</button></div></div>
+    <div class="q reveal delay3"><h3>3. What do we write about the deceased?</h3><div class="answers"><button class="answer" data-correct="true">One or two sentences</button><button class="answer" data-correct="false">A full biography</button><button class="answer" data-correct="false">Nothing</button></div></div>
+    <div class="q reveal delay4"><h3>4. What comes at the end?</h3><div class="answers"><button class="answer" data-correct="false">A joke</button><button class="answer" data-correct="true">Name & address</button><button class="answer" data-correct="false">Another story</button></div></div>
   </div>
-</section>
-
-<section class="slide" aria-label="Writing checklist">
-  <div class="topline"><span class="eyebrow">08 • Final checklist</span><span class="kicker">10 / 11</span></div>
-  <div class="memory">
-    <div class="memory-photo reveal"><img src="https://images.unsplash.com/photo-1780536890742-a3d937535d66?auto=format&fit=crop&fm=jpg&q=72&w=1200" alt="Vintage handwritten letters on aged paper" loading="lazy"><span class="credit">Photo: Fiona Murray-deGraaff / Unsplash</span></div>
-    <div class="panel reveal delay1">
-      <p class="eyebrow">Before you submit</p><h2 style="margin-top:9px">Pause. Read it once more.</h2>
-      <div class="list">
-        <div class="list-item"><span class="num">✓</span><div><strong>Is the first sentence sympathetic?</strong><p class="small">No long introduction.</p></div></div>
-        <div class="list-item"><span class="num">✓</span><div><strong>Did you honor the person?</strong><p class="small">One sincere detail is enough.</p></div></div>
-        <div class="list-item"><span class="num">✓</span><div><strong>Did you offer support?</strong><p class="small">Comfort without pressure.</p></div></div>
-        <div class="list-item"><span class="num">✓</span><div><strong>Is the ending respectful?</strong><p class="small">Sign your name and, when required, address.</p></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide" aria-label="Class questions">
-  <div class="topline"><span class="eyebrow">09 • Check your understanding</span><span class="kicker">11 / 11</span></div>
-  <div style="margin-top:24px" class="reveal"><h2>Let’s see what you remember.</h2><p class="small" style="margin-top:9px">Tap an answer to reveal whether it is correct.</p></div>
-  <div class="question-grid">
-    <div class="q reveal delay1"><h3>1. What should the opening express?</h3><div class="answers"><button class="answer" data-correct="false">A joke</button><button class="answer" data-correct="true">Grief & sympathy</button><button class="answer" data-correct="false">A long story</button></div></div>
-    <div class="q reveal delay2"><h3>2. What belongs in the middle?</h3><div class="answers"><button class="answer" data-correct="false">Rumors</button><button class="answer" data-correct="true">A respectful memory</button><button class="answer" data-correct="false">Private details</button></div></div>
-    <div class="q reveal delay3"><h3>3. Which tone is best?</h3><div class="answers"><button class="answer" data-correct="true">Sincere & gentle</button><button class="answer" data-correct="false">Casual & funny</button><button class="answer" data-correct="false">Dramatic</button></div></div>
-    <div class="q reveal delay4"><h3>4. What should you avoid?</h3><div class="answers"><button class="answer" data-correct="false">A kind memory</button><button class="answer" data-correct="true">Clichés & unwanted advice</button><button class="answer" data-correct="false">A respectful closing</button></div></div>
-  </div>
-  <div class="panel reveal delay4" style="margin-top:16px;text-align:center"><strong style="font-size:clamp(18px,2.2vw,30px)">Remember: comfort, don’t explain.</strong></div>
+  <div class="final-remember reveal delay5">Remember: <strong>Grief → Person → Condolence → Prayer → Comfort → Name & Address</strong> &nbsp;•&nbsp; <strong>75–100 words</strong></div>
 </section>
 
 <div class="navbar" aria-label="Presentation controls"><button class="nav" id="prev" aria-label="Previous slide">‹</button><button class="nav" id="next" aria-label="Next slide">›</button></div>
-<div class="footer"><span>Writing Messages of Condolence • Reference-format example</span><span id="counter">1 / 11</span></div>
+<div class="footer"><span>Writing Messages of Condolence • Classroom presentation • Add your <b>nims.jpg</b> beside <b>index.html</b>.</span><span id="counter">1 / 08</span></div>
 <div class="progress" id="progress"></div>
+<div class="notes" id="notes" aria-hidden="true"><div class="notes-panel"><h3>Presenter note</h3><p id="notesText"></p><button class="btn" id="closeNotes">Close</button></div></div>
 </main>
 <script>
 (function(){
   'use strict';
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var index=0, locked=false;
+  var counter=document.getElementById('counter');
+  var progress=document.getElementById('progress');
+  var prev=document.getElementById('prev');
+  var next=document.getElementById('next');
+  var deck=document.getElementById('deck');
+  var notes=document.getElementById('notes');
+  var notesText=document.getElementById('notesText');
+  var closeNotes=document.getElementById('closeNotes');
+  var typingHolder=document.getElementById('typingHolder');
+  var typingSign=document.getElementById('typingSign');
+  var replayBtn=document.getElementById('replayBtn');
+  var revealBtn=document.getElementById('revealBtn');
+  var timer=null, runId=0;
+  var reduced=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var animatedIndex=5;
 
-  var deck = document.getElementById('deck');
-  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  var counter = document.getElementById('counter');
-  var progress = document.getElementById('progress');
-  var prev = document.getElementById('prev');
-  var next = document.getElementById('next');
-
-  var animatedSlide = -1;
-  for(var slideIndex=0; slideIndex<slides.length; slideIndex++){
-    if(slides[slideIndex].getAttribute('aria-label') === 'Animated example card'){
-      animatedSlide = slideIndex;
-      break;
-    }
+  function setupImage(img){
+    img.addEventListener('error',function(){
+      if(img.dataset.fallback && img.src.indexOf(img.dataset.fallback)===-1){
+        img.src=img.dataset.fallback;
+        return;
+      }
+      var ph=img.parentNode && img.parentNode.querySelector('.nims-placeholder');
+      if(ph){
+        img.style.display='none';
+        ph.style.display='grid';
+      }else if(img.parentNode){
+        img.style.display='none';
+        img.parentNode.classList.add('image-missing');
+      }
+    });
   }
+  var imgs=[].slice.call(document.images);
+  imgs.forEach(setupImage);
 
-  var typed = document.getElementById('typedText');
-  var signature = document.getElementById('signature');
-  var replayBtn = document.getElementById('replayBtn');
-  var revealBtn = document.getElementById('revealBtn');
-
-  var blocks = [
-    'We are deeply saddened to share the sudden passing away of Mr. Nirmal Purja, a world-renowned mountaineer, former Gurkha and Special Boat Service soldier, and a source of immense pride for Nepal. He devoted his life to pushing the boundaries of human endurance and inspiring people around the world to believe that nothing is impossible.',
-    'Mr. Purja was known for his extraordinary courage, determination and humility. He set a world record by climbing all fourteen of the world\'s 8,000-metre peaks in just six months and six days in 2019, a feat chronicled in the Netflix documentary "14 Peaks: Nothing Is Impossible." He also led the historic first winter ascent of K2 with an all-Nepali team and championed greater recognition for Nepali climbers.',
-    'We are deeply grieved by the loss of such a distinguished and inspiring person. We extend our heartfelt condolences to all who mourn his passing. His contribution, character and service will be remembered with gratitude. May his departed soul rest in eternal peace.'
+  var blocks=[
+    'We are deeply saddened by the passing of Nirmal “Nimsdai” Purja, Nepal’s renowned mountaineer and a source of great pride to the nation.',
+    'He was admired for his courage, determination and service. He inspired people around the world through his remarkable achievements and his record-breaking climb of all fourteen 8,000-metre peaks in six months and six days.',
+    'We extend our heartfelt condolences to his family, friends and all who mourn his loss. May his departed soul rest in peace, and may his memory continue to inspire future generations.'
   ];
 
-  var timer = null;
-  var rafId = null;
-  var generation = 0;
-  var index = 0;
-  var locked = false;
-  var reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var raf = window.requestAnimationFrame || function(cb){ return window.setTimeout(function(){ cb(Date.now()); }, 16); };
-  var caf = window.cancelAnimationFrame || function(id){ window.clearTimeout(id); };
-  function nowTime(){ return (window.performance && performance.now) ? performance.now() : Date.now(); }
-
   function stopTyping(){
-    generation += 1;
-    if(timer){ window.clearTimeout(timer); timer = null; }
-    if(rafId){ caf(rafId); rafId = null; }
+    runId++;
+    if(timer){clearTimeout(timer);timer=null;}
   }
-
-  function resetTyped(){
-    stopTyping();
-    if(!typed) return;
-    typed.innerHTML = '';
-    if(signature) signature.hidden = true;
-  }
-
   function renderAll(){
     stopTyping();
-    if(!typed) return;
-    typed.innerHTML = '';
-    blocks.forEach(function(text){
-      var p = document.createElement('p');
-      p.textContent = text;
-      typed.appendChild(p);
-    });
-    if(signature) signature.hidden = false;
+    if(!typingHolder)return;
+    typingHolder.innerHTML='';
+    for(var i=0;i<blocks.length;i++){
+      var p=document.createElement('p');
+      p.className='typing-p';
+      p.textContent=blocks[i];
+      typingHolder.appendChild(p);
+    }
+    if(typingSign)typingSign.hidden=false;
   }
-
   function startTyping(){
-    if(animatedSlide < 0 || index !== animatedSlide) return;
-
-    var run = ++generation;
     stopTyping();
-    run = generation;
-
-    if(!typed) return;
-    typed.innerHTML = '';
-    if(signature) signature.hidden = true;
-
-    if(reducedMotion){
-      renderAll();
-      return;
+    if(!typingHolder)return;
+    typingHolder.innerHTML='';
+    if(typingSign)typingSign.hidden=true;
+    if(reduced){renderAll();return;}
+    var localRun=runId;
+    var bi=0;
+    var ps=[];
+    for(var j=0;j<blocks.length;j++){
+      var p=document.createElement('p');
+      p.className='typing-p';
+      typingHolder.appendChild(p);
+      ps.push(p);
     }
-
-    var paragraphs = blocks.map(function(){
-      var p = document.createElement('p');
-      typed.appendChild(p);
-      return p;
-    });
-
-    var blockIndex = 0;
-    var charIndex = 0;
-    var CHAR_DELAY = 18;
-    var PAUSE_BETWEEN = 300;
-    var startTime = null;
-    var lastCommit = 0;
-
-    function finish(){
-      if(run !== generation || index !== animatedSlide) return;
-      paragraphs.forEach(function(p,i){ p.textContent = blocks[i]; p.classList.remove('typing-active'); });
-      if(signature) signature.hidden = false;
-      timer = null;
-      rafId = null;
-    }
-
-    function step(now){
-      if(run !== generation || index !== animatedSlide) return;
-      if(!startTime) startTime = now;
-
-      var elapsed = now - lastCommit;
-      if(elapsed < CHAR_DELAY){
-        rafId = raf(step);
-        return;
+    function writeParagraph(){
+      if(localRun!==runId)return;
+      if(bi>=blocks.length){if(typingSign)typingSign.hidden=false;return;}
+      var text=blocks[bi], p=ps[bi], i=0;
+      function tick(){
+        if(localRun!==runId)return;
+        i=Math.min(text.length,i+2);
+        p.textContent=text.slice(0,i);
+        if(i<text.length){timer=setTimeout(tick,28);}else{bi++;timer=setTimeout(writeParagraph,520);}
       }
-      lastCommit = now;
-
-      var p = paragraphs[blockIndex];
-      p.classList.add('typing-active');
-      p.textContent = blocks[blockIndex].slice(0, charIndex + 1);
-      charIndex += 1;
-
-      if(charIndex >= blocks[blockIndex].length){
-        p.classList.remove('typing-active');
-        blockIndex += 1;
-        charIndex = 0;
-        if(blockIndex >= blocks.length){
-          finish();
-          return;
-        }
-        timer = window.setTimeout(function(){
-          if(run !== generation || index !== animatedSlide) return;
-          lastCommit = nowTime();
-          rafId = raf(step);
-        }, PAUSE_BETWEEN);
-        return;
-      }
-
-      rafId = raf(step);
+      tick();
     }
-
-    rafId = raf(function(){
-      rafId = raf(function(now){
-        if(run !== generation || index !== animatedSlide) return;
-        lastCommit = now;
-        step(now);
-      });
-    });
+    timer=setTimeout(writeParagraph,300);
   }
-
-  function enterSlide(newIndex){
-    if(newIndex < 0 || newIndex >= slides.length || newIndex === index) return;
-
-    var oldIndex = index;
-    index = newIndex;
-
-    if(oldIndex === animatedSlide) resetTyped();
-
-    slides.forEach(function(slide,i){
-      slide.classList.toggle('active', i === index);
-    });
-
-    counter.textContent = (index + 1) + ' / ' + slides.length;
-    progress.style.width = (((index + 1) / slides.length) * 100) + '%';
-    window.scrollTo({top:0, behavior:'smooth'});
-
-    if(index === animatedSlide){
-      resetTyped();
-      window.setTimeout(function(){
-        if(index === animatedSlide) startTyping();
-      }, 40);
-    }
+  function setSlide(n){
+    if(locked)return;
+    n=Math.max(0,Math.min(slides.length-1,n));
+    if(n===index){if(index===animatedIndex)startTyping();return;}
+    locked=true;
+    stopTyping();
+    index=n;
+    slides.forEach(function(s,i){s.classList.toggle('active',i===index);});
+    counter.textContent=(index+1)+' / 08';
+    progress.style.width=((index+1)/slides.length*100)+'%';
+    notesText.textContent=slides[index].getAttribute('data-notes')||'';
+    if(index===animatedIndex){setTimeout(startTyping,160);}
+    setTimeout(function(){locked=false;},280);
   }
-
-  function setSlide(newIndex){
-    newIndex = Math.max(0, Math.min(slides.length - 1, newIndex));
-    if(newIndex === index){
-      if(index === animatedSlide) startTyping();
-      return;
-    }
-    if(locked) return;
-    locked = true;
-    enterSlide(newIndex);
-    window.setTimeout(function(){ locked = false; }, 380);
-  }
-
-  function go(delta){ setSlide(index + delta); }
-
-  function initialSlide(){
-    var match = /(?:^|[?&])slide=(\d+)/.exec(window.location.search || '');
-    var requested = match ? parseInt(match[1],10) : NaN;
-    if(!isFinite(requested)) return 0;
-    return Math.max(0, Math.min(slides.length - 1, requested - 1));
-  }
-
-  function updateInitial(){
-    index = initialSlide();
-    slides.forEach(function(slide,i){
-      slide.classList.toggle('active', i === index);
-    });
-    counter.textContent = (index + 1) + ' / ' + slides.length;
-    progress.style.width = (((index + 1) / slides.length) * 100) + '%';
-    if(index === animatedSlide){
-      resetTyped();
-      window.setTimeout(startTyping, 90);
-    }
-  }
-
-  prev.addEventListener('click', function(){ go(-1); });
-  next.addEventListener('click', function(){ go(1); });
-
-  if(replayBtn) replayBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    if(index === animatedSlide) startTyping();
+  prev.addEventListener('click',function(){setSlide(index-1)});
+  next.addEventListener('click',function(){setSlide(index+1)});
+  replayBtn.addEventListener('click',function(e){e.stopPropagation();startTyping()});
+  revealBtn.addEventListener('click',function(e){e.stopPropagation();renderAll()});
+  closeNotes.addEventListener('click',function(){notes.classList.remove('open');notes.setAttribute('aria-hidden','true')});
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();setSlide(index+1)}
+    else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();setSlide(index-1)}
+    else if(k==='Home'){e.preventDefault();setSlide(0)}
+    else if(k==='End'){e.preventDefault();setSlide(slides.length-1)}
+    else if((k||'').toLowerCase()==='r' && index===animatedIndex){e.preventDefault();startTyping()}
+    else if((k||'').toLowerCase()==='n'){e.preventDefault();notes.classList.toggle('open');notes.setAttribute('aria-hidden',notes.classList.contains('open')?'false':'true')}
+    else if(k==='Escape'){notes.classList.remove('open');notes.setAttribute('aria-hidden','true')}
+    else if((k||'').toLowerCase()==='f'){e.preventDefault();if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen();}else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}}
   });
-
-  if(revealBtn) revealBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    if(index === animatedSlide) renderAll();
-  });
-
-  document.addEventListener('keydown', function(e){
-    var key = e.key;
-    if(key === 'ArrowRight' || key === 'PageDown' || key === ' '){
-      e.preventDefault();
-      go(1);
-    }else if(key === 'ArrowLeft' || key === 'PageUp'){
-      e.preventDefault();
-      go(-1);
-    }else if(key === 'Home'){
-      e.preventDefault();
-      setSlide(0);
-    }else if(key === 'End'){
-      e.preventDefault();
-      setSlide(slides.length - 1);
-    }else if((key || '').toLowerCase() === 'r' && index === animatedSlide){
-      e.preventDefault();
-      startTyping();
-    }else if((key || '').toLowerCase() === 'f'){
-      e.preventDefault();
-      if(document.fullscreenElement){
-        document.exitFullscreen && document.exitFullscreen();
-      }else if(deck.requestFullscreen){
-        deck.requestFullscreen();
-      }
-    }
-  });
-
-  var sx = 0, sy = 0;
-  deck.addEventListener('touchstart', function(e){
-    if(e.touches.length === 1){
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
-    }
-  }, {passive:true});
-
-  deck.addEventListener('touchend', function(e){
-    if(!sx) return;
-    var dx = e.changedTouches[0].clientX - sx;
-    var dy = e.changedTouches[0].clientY - sy;
-    sx = sy = 0;
-    if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
-  }, {passive:true});
-
-  var answerButtons = document.querySelectorAll('.answer');
-  for(var a=0; a<answerButtons.length; a++){
-    (function(btn){
-      btn.addEventListener('click', function(e){
-        e.stopPropagation();
-        btn.classList.add('revealed');
-        btn.textContent = btn.getAttribute('data-correct') === 'true' ? '✓ Correct' : 'Try again';
-      });
-    })(answerButtons[a]);
-  }
-
-  var fullscreen = document.getElementById('fullscreenBtn');
-  if(fullscreen){
-    fullscreen.addEventListener('click', function(){
-      if(document.fullscreenElement){
-        if(document.exitFullscreen) document.exitFullscreen();
-      }else if(deck.requestFullscreen){
-        deck.requestFullscreen();
-      }
+  var sx=0,sy=0;
+  deck.addEventListener('touchstart',function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
+  deck.addEventListener('touchend',function(e){if(!sx)return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=sy=0;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy))setSlide(index+(dx<0?1:-1));},{passive:true});
+  [].slice.call(document.querySelectorAll('.answer')).forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var group=btn.parentNode;
+      [].slice.call(group.querySelectorAll('.answer')).forEach(function(b){b.classList.remove('good','bad');});
+      var correct=btn.dataset.correct==='true';
+      btn.classList.add(correct?'good':'bad');
+      btn.textContent=correct?'✓ Correct':'Try again';
     });
-  }
-
-  updateInitial();
+  });
+  notesText.textContent=slides[0].getAttribute('data-notes')||'';
+  progress.style.width=(100/slides.length)+'%';
 })();
 </script>
 </body>
