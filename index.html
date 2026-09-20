@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f1e9">
-<meta name="description" content="A concise classroom presentation about writing messages of condolence.">
-<title>Writing Messages of Condolence — Final Classroom Presentation</title>
+<meta name="description" content="A classroom presentation about writing messages of condolence.">
+<title>Writing Messages of Condolence — Smart Board Edition</title>
 <style>
 :root{
   --bg:#f5f1e9;
@@ -21,146 +21,352 @@
   --sage2:#dce5df;
   --gold:#b79a62;
   --line:#d9d1c6;
-  --shadow:0 18px 48px rgba(36,56,67,.11);
-  --shadow2:0 8px 24px rgba(36,56,67,.07);
+  --shadow:0 14px 38px rgba(36,56,67,.11);
+  --shadow2:0 6px 18px rgba(36,56,67,.07);
   --radius:22px;
   --ease:cubic-bezier(.22,.8,.24,1);
 }
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
-body{overflow:hidden;touch-action:pan-y}
-button{font:inherit}
+body{overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button{font:inherit;touch-action:manipulation}
 .deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:clamp(22px,4vw,58px);overflow:hidden;background:
-  radial-gradient(circle at 92% 6%,rgba(160,68,61,.08) 0 10%,transparent 11%),
-  radial-gradient(circle at 4% 92%,rgba(131,151,142,.09) 0 9%,transparent 10%),
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:clamp(20px,3.6vw,54px);overflow:hidden;background:
+  radial-gradient(circle at 92% 6%,rgba(160,68,61,.07) 0 10%,transparent 11%),
+  radial-gradient(circle at 4% 92%,rgba(131,151,142,.08) 0 9%,transparent 10%),
   var(--bg)}
 .slide.active{display:flex}
-.slide::before{content:"";position:absolute;inset:auto -8vw -15vh auto;width:42vw;height:28vh;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(36,56,67,.035));transform:translate3d(30px,20px,0);opacity:0;pointer-events:none}
-.slide.active::before{animation:ambientIn .85s var(--ease) forwards}
-.topline{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:10}
-.eyebrow{font:800 11px/1.2 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
-.kicker{font:700 11px/1.2 Arial,sans-serif;color:var(--muted)}
+.slide.from-right.active{animation:slideInRight .36s var(--ease)}
+.slide.from-left.active{animation:slideInLeft .36s var(--ease)}
+@keyframes slideInRight{from{opacity:0;transform:translate3d(20px,0,0)}to{opacity:1;transform:none}}
+@keyframes slideInLeft{from{opacity:0;transform:translate3d(-20px,0,0)}to{opacity:1;transform:none}}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;z-index:5}
+.eyebrow{font:800 11px/1.2 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.kicker{font:700 11px/1.2 Arial,sans-serif;color:var(--muted);display:inline-flex;align-items:center;gap:8px;padding:5px 10px;background:var(--paper);border:1px solid var(--line);border-radius:999px}
+.kicker b{color:var(--navy);font-weight:800}
+
 h1,h2,h3,p{margin:0}
-h1{font-size:clamp(44px,6.7vw,88px);line-height:.92;letter-spacing:-.048em;color:var(--navy)}
-h2{font-size:clamp(31px,4.6vw,62px);line-height:.98;letter-spacing:-.04em;color:var(--navy)}
-h3{font-size:clamp(18px,2vw,27px);line-height:1.14;color:var(--navy)}
-p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
+h1{font-size:clamp(40px,6vw,80px);line-height:.94;letter-spacing:-.045em;color:var(--navy)}
+h2{font-size:clamp(28px,4.2vw,56px);line-height:.99;letter-spacing:-.035em;color:var(--navy)}
+h3{font-size:clamp(17px,1.9vw,25px);line-height:1.14;color:var(--navy)}
+p,li{font-size:clamp(15px,1.5vw,20px);line-height:1.5}
 .small{font:500 13px/1.5 Arial,sans-serif;color:var(--muted)}
-.rule{width:90px;height:2px;background:var(--red);transform-origin:left center}
-.badge{display:inline-flex;align-items:center;gap:8px;font:800 11px Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--navy)}
-.badge i{width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block}
-.btn{border:1px solid var(--line);background:#fffdf9;color:var(--ink);padding:9px 13px;border-radius:999px;cursor:pointer;box-shadow:0 4px 14px rgba(35,43,48,.05);font:800 11px Arial,sans-serif;letter-spacing:.03em}
-.btn:hover{transform:translateY(-1px)}
-.btn:focus-visible,.nav:focus-visible,.answer:focus-visible{outline:3px solid #9db2a9;outline-offset:3px}
-.nav{border:0;background:#fffdf9;box-shadow:0 7px 18px rgba(35,43,48,.14);width:43px;height:43px;border-radius:50%;cursor:pointer;color:var(--ink);font:800 19px Arial,sans-serif}
-.navbar{position:fixed;right:clamp(18px,3.5vw,54px);bottom:44px;display:flex;gap:8px;z-index:30}
-.footer{position:fixed;left:clamp(18px,3.5vw,54px);right:clamp(18px,3.5vw,54px);bottom:11px;display:flex;justify-content:space-between;gap:16px;z-index:25;font:10px Arial,sans-serif;color:var(--muted);pointer-events:none}
-.progress{position:fixed;left:0;bottom:0;height:4px;background:var(--red);width:0;z-index:40;transform-origin:left center}
-.reveal{opacity:0;transform:translate3d(0,11px,0)}
-.active .reveal{animation:rise .52s var(--ease) forwards}
-.active .delay1{animation-delay:.07s}.active .delay2{animation-delay:.14s}.active .delay3{animation-delay:.21s}.active .delay4{animation-delay:.28s}.active .delay5{animation-delay:.35s}.active .delay6{animation-delay:.42s}
-@keyframes rise{to{opacity:1;transform:none}}
-@keyframes ambientIn{to{opacity:1;transform:none}}
-@keyframes photoIn{from{opacity:0;transform:translate3d(18px,8px,0) scale(.985)}to{opacity:1;transform:none}}
-@keyframes cardPop{from{opacity:0;transform:translate3d(0,12px,0) scale(.985)}to{opacity:1;transform:none}}
+.rule{width:85px;height:2px;background:var(--red);transform-origin:left center}
+.active .rule{animation:lineGrow .5s var(--ease) .2s both}
 @keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes pulseOnce{0%{transform:scale(.985);box-shadow:0 0 0 0 rgba(160,68,61,0)}45%{transform:scale(1.01);box-shadow:0 0 0 8px rgba(160,68,61,.08)}100%{transform:scale(1);box-shadow:var(--shadow)}}
+.badge{display:inline-flex;align-items:center;gap:8px;font:800 11px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block}
+
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:11px 16px;border-radius:999px;cursor:pointer;box-shadow:0 4px 12px rgba(35,43,48,.05);font:800 12px Arial,sans-serif;letter-spacing:.02em;min-height:42px;transition:transform .16s var(--ease),box-shadow .16s var(--ease),background .16s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(35,43,48,.10)}
+.btn:active{transform:translateY(0)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.primary:hover{background:#1c2c35}
+.btn:focus-visible,.nav:focus-visible,.answer:focus-visible,.dotnav button:focus-visible{outline:3px solid #9db2a9;outline-offset:2px}
+
+.nav{border:0;background:var(--paper);box-shadow:var(--shadow2);width:52px;height:52px;border-radius:50%;cursor:pointer;color:var(--ink);font:800 22px Arial,sans-serif;transition:transform .16s var(--ease),box-shadow .16s var(--ease)}
+.nav:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(35,43,48,.15)}
+.navbar{position:fixed;right:clamp(16px,3vw,48px);bottom:58px;display:flex;gap:10px;z-index:30}
+.dotnav{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;display:flex;gap:8px;padding:8px 12px;background:var(--paper);border:1px solid var(--line);border-radius:999px;z-index:30}
+.dotnav button{width:12px;height:12px;border-radius:50%;border:0;padding:0;background:#cfc7ba;cursor:pointer;transition:background .16s var(--ease),width .2s var(--ease)}
+.dotnav button:hover{background:var(--navy2)}
+.dotnav button.on{background:var(--red);width:24px;border-radius:6px}
+.footer{position:fixed;left:clamp(16px,3vw,48px);right:clamp(16px,3vw,48px);bottom:10px;display:flex;justify-content:space-between;gap:16px;z-index:25;font:10px Arial,sans-serif;color:var(--muted);pointer-events:none}
+.footer .keys{pointer-events:auto;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.progress{position:fixed;left:0;bottom:0;height:4px;background:var(--red);width:0;z-index:40;transition:width .3s var(--ease)}
+
+.reveal{opacity:0;transform:translate3d(0,11px,0)}
+.active .reveal{animation:rise .48s var(--ease) forwards}
+.active .delay1{animation-delay:.06s}
+.active .delay2{animation-delay:.12s}
+.active .delay3{animation-delay:.18s}
+.active .delay4{animation-delay:.24s}
+.active .delay5{animation-delay:.30s}
+.active .delay6{animation-delay:.36s}
+@keyframes rise{to{opacity:1;transform:none}}
 @keyframes caret{50%{opacity:0}}
-@keyframes answerPop{from{transform:scale(.96)}to{transform:scale(1)}}
-@keyframes photoFloat{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+@keyframes pulseOnce{0%{transform:scale(.985)}45%{transform:scale(1.005)}100%{transform:scale(1)}}
 
 /* slide 1 */
-.hero{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(30px,6vw,90px);align-items:center;flex:1;min-height:0}
-.hero-copy{display:flex;flex-direction:column;gap:20px;max-width:860px;position:relative;z-index:2}
-.quote{font-size:clamp(27px,3.45vw,49px);line-height:1.12;max-width:850px;color:#3a4650}
-.quote-mark{color:var(--red);font-size:1.25em}
-.hero-photo{height:min(66vh,620px);position:relative}
-.hero-photo img{width:100%;height:100%;display:block;object-fit:cover;border-radius:34px;filter:saturate(.68) contrast(.98);animation:photoIn .78s var(--ease) .16s both}
-.hero-frame{position:absolute;inset:17px;border:1px solid rgba(255,255,255,.62);border-radius:24px;pointer-events:none}
-.hero-caption{position:absolute;left:20px;bottom:18px;padding:9px 12px;border-radius:999px;background:rgba(255,253,249,.93);font:800 10px Arial,sans-serif;letter-spacing:.09em;color:var(--navy)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,5vw,70px);align-items:center;flex:1;min-height:0}
+.hero-copy{display:flex;flex-direction:column;gap:16px;max-width:860px}
+.quote{font-size:clamp(25px,3.2vw,46px);line-height:1.14;max-width:850px;color:#3a4650}
+.quote-mark{color:var(--red);font-size:1.2em}
+.hero-photo{height:min(62vh,560px);border-radius:24px;overflow:hidden;background:#ddd;box-shadow:var(--shadow);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.hero-photo:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(36,56,67,.15)}
+.hero-photo img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.72) contrast(.98)}
 
 /* slide 2 */
-.purpose{display:grid;grid-template-columns:1fr .86fr;gap:clamp(26px,5vw,72px);align-items:center;flex:1;min-height:0}
-.purpose-copy{display:flex;flex-direction:column;gap:18px}
+.purpose{display:grid;grid-template-columns:1fr .86fr;gap:clamp(22px,4vw,60px);align-items:center;flex:1;min-height:0}
+.purpose-copy{display:flex;flex-direction:column;gap:16px}
 .purpose-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.pcard{padding:19px 17px;border:1px solid var(--line);border-radius:18px;background:rgba(255,253,249,.86);min-height:152px;box-shadow:var(--shadow2)}
-.pcard b{display:block;font:800 10px Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.pcard span{display:block;font-size:18px;line-height:1.18}
-.requirement{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;border-left:4px solid var(--red);background:var(--red2);border-radius:12px;font:700 13px Arial,sans-serif}
-.purpose-photo{height:min(61vh,570px)}
-.photo{overflow:hidden;border-radius:28px;position:relative;background:#ddd;box-shadow:var(--shadow)}
-.photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.78) contrast(.98)}
-.image-missing{background:linear-gradient(145deg,#eee8de,#d9e0dc)!important}
-.image-missing::before{content:"Photo asset\A will appear here";white-space:pre;text-align:center;color:#5d686d;font:800 10px/1.35 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;position:absolute;inset:0;display:grid;place-items:center;padding:20px;z-index:2}
-.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 56%,rgba(32,40,45,.20));pointer-events:none}
-.photo-badge{position:absolute;left:18px;top:18px;background:rgba(255,253,249,.9);padding:7px 9px;border-radius:999px;font:800 9px Arial,sans-serif;letter-spacing:.09em;color:var(--navy)}
+.pcard{padding:16px 15px;border:1px solid var(--line);border-radius:16px;background:var(--paper);min-height:140px;box-shadow:var(--shadow2);transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease)}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(36,56,67,.12);border-color:#c9bcae}
+.pcard b{display:block;font:800 10px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pcard span{display:block;font-size:17px;line-height:1.2}
+.requirement{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 15px;border-left:4px solid var(--red);background:var(--red2);border-radius:10px;font:700 13px Arial,sans-serif}
+.purpose-photo{height:min(58vh,540px);border-radius:22px;overflow:hidden;background:#ddd;box-shadow:var(--shadow);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.purpose-photo:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(36,56,67,.15)}
+.purpose-photo img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.78) contrast(.98)}
 
 /* slide 3 */
-.rules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:22px;position:relative;z-index:1}
-.rule-box{display:grid;grid-template-columns:44px 1fr;gap:13px;align-items:start;padding:16px 17px;background:rgba(255,253,249,.88);border:1px solid var(--line);border-radius:17px;box-shadow:0 7px 18px rgba(36,56,67,.05)}
-.rule-num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font:800 11px Arial,sans-serif}
-.rule-box strong{font-size:17px;line-height:1.22;color:var(--navy)}.rule-box p{font-size:13px;color:var(--muted);margin-top:6px}.rule-note{margin-top:14px;max-width:720px;padding:11px 13px;background:var(--sage2);border-radius:11px;font:700 12px Arial,sans-serif;color:#455249}
+.rules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.rule-box{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start;padding:14px 16px;background:var(--paper);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow2);transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease)}
+.rule-box:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(36,56,67,.11);border-color:#c9bcae}
+.rule-num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font:800 11px Arial,sans-serif}
+.rule-box strong{font-size:16px;line-height:1.22;color:var(--navy)}
+.rule-box p{font-size:13px;color:var(--muted);margin-top:5px}
+.rule-note{margin-top:12px;max-width:720px;padding:11px 13px;background:var(--sage2);border-radius:10px;font:700 12px Arial,sans-serif;color:#455249}
 
 /* slide 4 */
-.sequence{display:grid;grid-template-columns:1fr .92fr;gap:clamp(24px,4vw,58px);align-items:center;flex:1;min-height:0}
-.sequence-list{display:grid;gap:10px}.seq{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,253,249,.84);box-shadow:0 6px 16px rgba(36,56,67,.04)}
-.seq .n{width:29px;height:29px;border-radius:50%;background:var(--red2);color:var(--red);display:grid;place-items:center;font:800 10px Arial,sans-serif}.seq b{display:block;font:800 10px Arial,sans-serif;letter-spacing:.11em;color:var(--red);text-transform:uppercase}.seq span{font-size:18px;line-height:1.16}.seq small{font:500 11px/1.35 Arial,sans-serif;color:var(--muted);text-align:right;max-width:170px}
-.sequence-visual{height:min(63vh,600px);position:relative}.paper-sheet{position:absolute;inset:6% 5% 4% 10%;background:#fffdf9;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:clamp(24px,3vw,40px)}.paper-sheet::before{content:"";position:absolute;inset:16px;border:1px solid rgba(36,56,67,.12);border-radius:4px;pointer-events:none}
-.paper-title{text-align:center;font:800 15px Arial,sans-serif;letter-spacing:.25em;color:var(--red);padding-top:10px}.paper-rule{height:1px;background:#dfd7ce;width:70%;margin:14px auto 22px}.paper-block{display:grid;gap:8px;margin-top:13px}.paper-line{height:10px;background:#eee7df;border-radius:99px}.paper-line.short{width:72%}.paper-line.mid{width:86%}
-.paper-chip{position:absolute;background:#fffdf9;border:1px solid var(--line);border-radius:13px;padding:10px 12px;box-shadow:var(--shadow2);font:800 10px Arial,sans-serif;color:var(--navy)}.paper-chip.one{right:-12px;top:22%}.paper-chip.two{left:-12px;bottom:13%;background:var(--sage2);border-color:#c8d5ce;color:#4b5c52}.paper-chip.three{right:14px;bottom:8%;background:var(--red2);border-color:#ddc1bc;color:#69443f}
+.sequence{display:grid;grid-template-columns:1fr .9fr;gap:clamp(20px,3.5vw,50px);align-items:center;flex:1;min-height:0}
+.sequence-list{display:grid;gap:9px}
+.seq{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--paper);box-shadow:var(--shadow2);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.seq:hover{transform:translateX(4px);box-shadow:0 12px 26px rgba(36,56,67,.10)}
+.seq .n{width:28px;height:28px;border-radius:50%;background:var(--red2);color:var(--red);display:grid;place-items:center;font:800 10px Arial,sans-serif}
+.seq b{display:block;font:800 10px Arial,sans-serif;letter-spacing:.1em;color:var(--red);text-transform:uppercase}
+.seq span{font-size:17px;line-height:1.16}
+.seq small{font:500 11px/1.35 Arial,sans-serif;color:var(--muted);text-align:right;max-width:170px}
+.sequence-visual{height:min(60vh,570px);position:relative}
+.paper-sheet{position:absolute;inset:6% 5% 4% 10%;background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);padding:clamp(20px,2.6vw,34px)}
+.paper-sheet::before{content:"";position:absolute;inset:14px;border:1px solid rgba(36,56,67,.10);border-radius:4px;pointer-events:none}
+.paper-title{text-align:center;font:800 14px Arial,sans-serif;letter-spacing:.22em;color:var(--red);padding-top:8px}
+.paper-rule{height:1px;background:#dfd7ce;width:70%;margin:12px auto 18px}
+.paper-block{display:grid;gap:8px;margin-top:12px}
+.paper-line{height:10px;background:#eee7df;border-radius:99px}
+.paper-line.short{width:72%}
+.paper-line.mid{width:86%}
 
 /* slide 5 */
-.build-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px;position:relative;z-index:1}.build-box{padding:18px 18px 20px;background:rgba(255,253,249,.88);border:1px solid var(--line);border-radius:20px;min-height:160px;box-shadow:0 7px 18px rgba(36,56,67,.05)}
-.build-box .tag{font:800 10px Arial,sans-serif;letter-spacing:.12em;color:var(--red);text-transform:uppercase}.build-box h3{margin-top:8px}.build-box p{font-size:14px;color:var(--muted);margin-top:8px}.build-box .sample{display:inline-block;margin-top:12px;padding:8px 10px;background:var(--paper2);border-radius:10px;font:700 12px/1.35 Georgia,serif;color:#3c4850}.build-box.accent{background:linear-gradient(180deg,#fffdfa 0%,#f7ece8 100%);border-color:#e0c7c1}.build-box:hover{transform:translateY(-2px)}
+.build-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.build-box{padding:16px;background:var(--paper);border:1px solid var(--line);border-radius:18px;min-height:150px;box-shadow:var(--shadow2);transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease)}
+.build-box:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(36,56,67,.12);border-color:#c9bcae}
+.build-box .tag{font:800 10px Arial,sans-serif;letter-spacing:.11em;color:var(--red);text-transform:uppercase}
+.build-box h3{margin-top:7px}
+.build-box p{font-size:13.5px;color:var(--muted);margin-top:7px}
+.build-box .sample{display:inline-block;margin-top:10px;padding:7px 10px;background:var(--paper2);border-radius:9px;font:700 12px/1.35 Georgia,serif;color:#3c4850}
+.build-box.accent{background:#f9f0ec;border-color:#e0c7c1}
 
-/* slide 6 animated */
-.animated-grid{display:grid;grid-template-columns:.42fr .58fr;gap:24px;align-items:center;flex:1;min-height:0}.animated-side{display:flex;flex-direction:column;gap:14px}.animated-photo{height:min(33vh,300px)}
-.meta-strip{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}.date-chip{padding:10px 11px;border:1px solid var(--line);border-radius:12px;background:#fffdf9;font:700 11px/1.25 Arial,sans-serif;color:var(--navy)}.date-chip span{display:block;color:var(--muted);font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px}.date-chip.right{text-align:right}
-.typing-stage{display:grid;place-items:center;min-height:0;height:min(71vh,710px);position:relative}.typing-card{width:min(98%,730px);max-height:96%;overflow:hidden;background:#fffdf9;border:1px solid #d6cdc1;border-radius:6px;padding:clamp(23px,3vw,38px);box-shadow:var(--shadow);position:relative;animation:pulseOnce 1.15s ease-out .25s both}.typing-card::before{content:"";position:absolute;inset:13px;border:1px solid rgba(36,56,67,.12);pointer-events:none}.typing-head{text-align:center;font:900 15px Arial,sans-serif;letter-spacing:.23em;color:var(--red)}.typing-photo-row{display:grid;grid-template-columns:1fr 122px 1fr;gap:10px;align-items:center;max-width:540px;margin:12px auto 7px}.typing-photo{width:122px;height:142px;border-radius:4px;overflow:hidden;background:#eee;position:relative;box-shadow:0 5px 16px rgba(0,0,0,.12)}.typing-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.16) saturate(.74)}
-.typing-date{font:700 10px/1.3 Georgia,serif;color:#47433f}.typing-date.right{text-align:left}.typing-date.left{text-align:right}.typing-sub{text-align:center;font:700 13px/1.25 Georgia,serif;color:var(--navy);margin-top:6px}.typing-rule{height:1px;background:#ded5cc;width:65%;margin:11px auto 16px;transform-origin:center center}.active .typing-rule{animation:lineGrow .55s var(--ease) .35s both}.typing-inner{margin-top:0;max-height:38vh;overflow:hidden}.typing-p{font-size:clamp(12px,1.23vw,17px);line-height:1.42;margin:0 0 11px;color:#283136}.typing-caret{display:inline-block;color:var(--red);animation:caret .7s steps(1,end) infinite}.typing-sign{text-align:center;margin-top:12px;font:700 11px/1.4 Georgia,serif;color:#4d4a48}.typing-tools{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:10px}
-.nims-placeholder{position:absolute;inset:0;display:none;place-items:center;text-align:center;background:linear-gradient(145deg,#ece5da,#d9d0c3);color:#5d554e;font:700 10px/1.35 Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:8px}.nims-placeholder strong{font-size:12px;color:#4b3b48}
+/* slide 6 - phrase bank + generator */
+.slide[data-title="Phrase bank"]{overflow:hidden}
+.phrase-intro{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:8px;flex-wrap:wrap}
+.try-hint{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;background:var(--sage2);border-radius:999px;font:700 11px Arial,sans-serif;color:#41544a}
+.try-hint i{width:6px;height:6px;border-radius:50%;background:#5a7568;animation:caret 1.6s ease-in-out infinite}
 
-/* slide 7 */
-.identify{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;align-items:stretch;flex:1;min-height:0;margin-top:22px}.identify-list{display:grid;gap:9px;align-content:start}.idrow{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:12px 13px;border:1px solid var(--line);border-radius:15px;background:rgba(255,253,249,.84)}.idrow .n{width:27px;height:27px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 9px Arial,sans-serif}.idrow b{font-size:14px;color:var(--navy)}.idrow p{font-size:12px;color:var(--muted);margin-top:3px}
-.identify-photo{min-height:400px;overflow:hidden;border-radius:28px;position:relative;box-shadow:var(--shadow)}.identify-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.7)}.identify-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(36,56,67,.50),rgba(36,56,67,.04) 65%);pointer-events:none}.identify-title{position:absolute;left:22px;top:20px;color:#fff;max-width:370px}.identify-title b{display:block;font:800 11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}.identify-title span{display:block;font-size:clamp(28px,3vw,44px);line-height:.98;margin-top:6px}
+.bank-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:14px;margin-top:12px;flex:1;min-height:0}
+.bank-left{display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto;padding-right:4px}
+.bank-left::-webkit-scrollbar{width:8px}
+.bank-left::-webkit-scrollbar-thumb{background:#c8bcab;border-radius:6px}
+
+.phrase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.phrase-card{padding:10px 11px;background:var(--paper);border:1px solid var(--line);border-radius:13px;display:flex;flex-direction:column;box-shadow:var(--shadow2);transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease)}
+.phrase-card:hover{border-color:#c9bcae;box-shadow:0 10px 22px rgba(36,56,67,.10);transform:translateY(-2px)}
+.phrase-card .tag{font:800 9px Arial,sans-serif;letter-spacing:.09em;color:var(--red);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.phrase-card .tag .num{width:18px;height:18px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 8px Arial,sans-serif}
+.phrase-card h3{margin-top:6px;font-size:12.5px;line-height:1.15}
+.phrase-card ul{list-style:none;padding:0;margin:7px 0 0;display:grid;gap:5px}
+.phrase-card li{padding:9px 9px;background:var(--paper2);border-radius:7px;font:600 11.5px/1.35 Georgia,serif;color:#3c4850;border-left:3px solid var(--sage);cursor:pointer;min-height:38px;display:flex;align-items:center;transition:background .16s var(--ease),transform .16s var(--ease),border-color .16s var(--ease),box-shadow .16s var(--ease)}
+.phrase-card li:hover{background:#fffdf8;transform:translateX(3px);box-shadow:0 4px 10px rgba(36,56,67,.07)}
+.phrase-card li.picked{background:var(--red2);border-left-color:var(--red);color:#5a3a35}
+.phrase-card.sympathy li{border-left-color:var(--red)}
+.phrase-card.remember li{border-left-color:var(--gold)}
+.phrase-card.condolence li{border-left-color:var(--navy)}
+.phrase-card.prayer li{border-left-color:var(--sage)}
+.phrase-card.comfort li{border-left-color:var(--red)}
+.phrase-card.ending li{border-left-color:var(--navy)}
+
+.phrase-mixer{padding:10px 12px;background:linear-gradient(180deg,#fffdfa,#f4ede4);border:1px dashed #c8b8a6;border-radius:12px;flex-shrink:0}
+.phrase-mixer .label{font:800 9px Arial,sans-serif;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.phrase-mixer .label .clear{border:0;background:transparent;color:var(--muted);font:700 10px Arial,sans-serif;cursor:pointer;text-decoration:underline;padding:4px;transition:color .16s var(--ease)}
+.phrase-mixer .label .clear:hover{color:var(--red)}
+.phrase-mixer .out{font:600 12px/1.5 Georgia,serif;color:#2b343b;min-height:32px}
+.phrase-mixer .out .ph{color:#a39a8f;font-style:italic}
+.phrase-mixer .count{margin-left:8px;font:700 10px Arial,sans-serif;color:var(--muted)}
+.phrase-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}
+
+/* generated message */
+.bank-right{display:flex;flex-direction:column;min-height:0;position:relative}
+.gen-placeholder{display:grid;place-content:center;text-align:center;gap:8px;padding:22px 16px;border:1px dashed #c8b8a6;border-radius:16px;background:linear-gradient(180deg,#fffdfa,#f4ede4);height:100%;color:var(--muted)}
+.gen-placeholder .gp-icon{font-size:24px;color:var(--red);opacity:.6}
+.gen-placeholder p{font-size:12.5px;line-height:1.5}
+.gen-placeholder .small{font-size:11px}
+.gen-panel{display:none;flex-direction:column;height:100%;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--paper);box-shadow:var(--shadow2)}
+.gen-panel.show{display:flex;animation:genIn .4s var(--ease)}
+.gen-panel.flash{box-shadow:0 0 0 3px rgba(160,68,61,.28),0 14px 30px rgba(36,56,67,.10)}
+@keyframes genIn{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
+.gen-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;background:var(--navy);color:#fff;flex-wrap:wrap;flex-shrink:0}
+.gen-head .t{font:800 10px Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
+.gen-head .t i{width:6px;height:6px;border-radius:50%;background:#e9c7a3;display:inline-block}
+.gen-head .meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gen-head .pill{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.16);font:800 9.5px Arial,sans-serif}
+.gen-head .pill.ok{background:rgba(157,198,168,.32)}
+.gen-head .pill.warn{background:rgba(220,160,140,.30)}
+.gen-head button{border:0;background:rgba(255,255,255,.18);color:#fff;padding:6px 11px;border-radius:999px;cursor:pointer;font:800 10px Arial,sans-serif;min-height:32px;transition:background .16s var(--ease),transform .16s var(--ease)}
+.gen-head button:hover{background:rgba(255,255,255,.30);transform:translateY(-1px)}
+
+.gen-body{padding:14px 16px;position:relative;overflow-y:auto;flex:1;min-height:0}
+.gen-body::-webkit-scrollbar{width:8px}
+.gen-body::-webkit-scrollbar-thumb{background:#c8bcab;border-radius:6px}
+.gen-card{position:relative}
+.gen-title{text-align:center;font:900 12px Arial,sans-serif;letter-spacing:.2em;color:var(--red);margin-bottom:6px}
+.gen-photo-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;max-width:330px;margin:0 auto 8px}
+.gen-date{font:700 10px/1.35 Georgia,serif;color:#47433f}
+.gen-date.right{text-align:left}
+.gen-date.left{text-align:right}
+.gen-date span{display:block;font:700 8px Arial,sans-serif;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.gen-photo{width:86px;height:106px;border:1px dashed #b8a99a;border-radius:4px;display:grid;place-items:center;text-align:center;background:repeating-linear-gradient(45deg,#f0e8dd 0 6px,#e9dfd0 6px 12px);color:#7a6f63;font:700 8px/1.3 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:6px}
+.gen-photo strong{display:block;font:800 9px Arial,sans-serif;color:#5a4f45;margin-bottom:2px}
+.gen-name{text-align:center;font:700 13px/1.25 Georgia,serif;color:var(--navy);margin-bottom:3px}
+.gen-dates-line{text-align:center;font:600 9px/1.3 Arial,sans-serif;color:var(--muted);letter-spacing:.04em;margin-bottom:10px}
+.gen-rule{height:1px;background:#ded5cc;width:55%;margin:0 auto 12px;transform-origin:center}
+.gen-panel.show .gen-rule{animation:lineGrow .5s var(--ease) .3s both}
+.gen-text{font-size:clamp(12px,1.1vw,13.5px);line-height:1.6;color:#2b343b;font-family:Georgia,serif}
+.gen-text p{margin:0 0 9px;text-align:justify}
+.gen-text p:last-child{margin-bottom:0}
+.gen-caret{display:inline-block;color:var(--red);animation:caret .7s steps(1,end) infinite;font-weight:700;margin-left:1px}
+.gen-sign{margin-top:12px;padding-top:10px;border-top:1px solid #e6ded4;text-align:right;font:700 10.5px/1.5 Georgia,serif;color:#4d4a48;opacity:0;transition:opacity .35s var(--ease)}
+.gen-sign.show{opacity:1}
+.gen-hint{padding:0 12px 9px;font:700 9.5px Arial,sans-serif;color:var(--red);letter-spacing:.04em;display:none;align-items:center;gap:6px;flex-shrink:0}
+.gen-hint.show{display:flex}
+.gen-hint i{width:5px;height:5px;border-radius:50%;background:var(--red);animation:caret 1.4s ease-in-out infinite}
+
+/* slide 7 - animated example */
+.animated-grid{display:grid;grid-template-columns:.4fr .6fr;gap:22px;align-items:center;flex:1;min-height:0}
+.animated-side{display:flex;flex-direction:column;gap:12px}
+.animated-photo{height:min(30vh,270px);border-radius:20px;overflow:hidden;background:#ddd;box-shadow:var(--shadow2);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.animated-photo:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(36,56,67,.14)}
+.animated-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.72)}
+.write-tools{display:flex;flex-wrap:wrap;gap:8px}
+.typing-stage{display:grid;place-items:center;min-height:0;height:min(68vh,670px)}
+.typing-card{width:min(98%,720px);max-height:96%;overflow:hidden;background:var(--paper);border:1px solid #d6cdc1;border-radius:6px;padding:clamp(20px,2.6vw,34px);box-shadow:var(--shadow);position:relative;animation:pulseOnce .9s ease-out .2s both}
+.typing-card::before{content:"";position:absolute;inset:12px;border:1px solid rgba(36,56,67,.11);pointer-events:none}
+.typing-head{text-align:center;font:900 14px Arial,sans-serif;letter-spacing:.21em;color:var(--red)}
+.typing-photo-row{display:grid;grid-template-columns:1fr 118px 1fr;gap:10px;align-items:center;max-width:520px;margin:12px auto 7px}
+.typing-photo{width:118px;height:138px;border-radius:4px;overflow:hidden;background:#eee;position:relative;box-shadow:0 4px 14px rgba(0,0,0,.10)}
+.typing-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.16) saturate(.74)}
+.typing-date{font:700 10px/1.3 Georgia,serif;color:#47433f}
+.typing-date.right{text-align:left}
+.typing-date.left{text-align:right}
+.typing-sub{text-align:center;font:700 13px/1.25 Georgia,serif;color:var(--navy);margin-top:6px}
+.typing-rule{height:1px;background:#ded5cc;width:65%;margin:11px auto 16px;transform-origin:center}
+.active .typing-rule{animation:lineGrow .5s var(--ease) .35s both}
+.typing-inner{margin-top:0;max-height:36vh;overflow:hidden}
+.typing-p{font-size:clamp(12.5px,1.2vw,16px);line-height:1.45;margin:0 0 10px;color:#283136}
+.typing-caret{display:inline-block;color:var(--red);animation:caret .7s steps(1,end) infinite}
+.typing-sign{text-align:center;margin-top:12px;font:700 11px/1.4 Georgia,serif;color:#4d4a48}
+.typing-meta{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+.wordcount{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:var(--paper2);font:800 10px Arial,sans-serif;color:var(--navy)}
+.wordcount b{color:var(--red)}
+.nims-placeholder{position:absolute;inset:0;display:none;place-items:center;text-align:center;background:#efe6d8;color:#5d554e;font:700 10px/1.35 Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:8px}
 
 /* slide 8 */
-.questions{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:22px;position:relative;z-index:1}.q{background:rgba(255,253,249,.88);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 7px 18px rgba(36,56,67,.04)}.q h3{font-size:16px;margin-bottom:11px}.answers{display:flex;flex-wrap:wrap;gap:7px}.answer{border:1px solid var(--line);background:var(--paper2);border-radius:999px;padding:8px 11px;cursor:pointer;font:800 11px Arial,sans-serif;color:#4b5156;transition:transform .16s ease,background .16s ease,border-color .16s ease}.answer:hover{transform:translateY(-1px)}.answer.good{background:var(--sage2);border-color:#b8c8be;color:#3d5345}.answer.bad{background:#f1dfdc;border-color:#dfb8b1;color:#714a44}.answer.good,.answer.bad{animation:answerPop .24s ease-out}.final-remember{margin-top:15px;padding:14px 15px;border-radius:14px;background:var(--navy);color:#fff;text-align:center;font:800 13px/1.45 Arial,sans-serif;box-shadow:0 10px 22px rgba(36,56,67,.18)}
+.identify{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch;flex:1;min-height:0;margin-top:18px}
+.identify-list{display:grid;gap:9px;align-content:start}
+.idrow{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:var(--paper);box-shadow:var(--shadow2);transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.idrow:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(36,56,67,.10)}
+.idrow .n{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 9px Arial,sans-serif}
+.idrow b{font-size:14px;color:var(--navy)}
+.idrow p{font-size:12px;color:var(--muted);margin-top:3px}
+.identify-photo{min-height:380px;overflow:hidden;border-radius:22px;position:relative;background:#ddd;box-shadow:var(--shadow);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.identify-photo:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(36,56,67,.15)}
+.identify-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.7)}
+.identify-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(36,56,67,.55),rgba(36,56,67,.05) 65%)}
+.identify-title{position:absolute;left:20px;top:18px;color:#fff;max-width:340px}
+.identify-title b{display:block;font:800 11px Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.identify-title span{display:block;font-size:clamp(24px,2.7vw,38px);line-height:1;margin-top:6px}
 
-.notes{position:fixed;inset:0;background:rgba(30,36,40,.38);display:none;place-items:center;z-index:50;padding:20px}.notes.open{display:grid}.notes-panel{max-width:720px;width:100%;max-height:80vh;overflow:auto;background:var(--paper);border-radius:20px;padding:24px;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.22)}.notes-panel h3{color:var(--navy);margin-bottom:10px}.notes-panel p{font-size:15px}.notes-panel .btn{margin-top:14px}
+/* slide 9 */
+.questions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow2);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.q:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(36,56,67,.10)}
+.q h3{font-size:16px;margin-bottom:10px}
+.answers{display:flex;flex-wrap:wrap;gap:7px}
+.answer{border:1px solid var(--line);background:var(--paper2);border-radius:999px;padding:10px 14px;cursor:pointer;font:800 11.5px Arial,sans-serif;color:#4b5156;min-height:40px;transition:transform .16s var(--ease),background .16s var(--ease),border-color .16s var(--ease),box-shadow .16s var(--ease)}
+.answer:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(36,56,67,.10)}
+.answer.good{background:var(--sage2);border-color:#b8c8be;color:#3d5345}
+.answer.bad{background:#f1dfdc;border-color:#dfb8b1;color:#714a44}
+.final-remember{margin-top:14px;padding:13px 14px;border-radius:12px;background:var(--navy);color:#fff;text-align:center;font:800 13px/1.45 Arial,sans-serif;box-shadow:0 10px 22px rgba(36,56,67,.18)}
 
+/* notes modal */
+.notes{position:fixed;inset:0;background:rgba(30,36,40,.5);display:none;place-items:center;z-index:50;padding:20px}
+.notes.open{display:grid}
+.notes-panel{max-width:680px;width:100%;max-height:80vh;overflow:auto;background:var(--paper);border-radius:18px;padding:22px;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.22);animation:genIn .3s var(--ease)}
+.notes-panel h3{color:var(--navy);margin-bottom:10px}
+.notes-panel p{font-size:15px}
+.notes-panel .btn{margin-top:14px}
+
+/* responsive */
+@media (max-width:1100px){
+  .bank-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .bank-left{overflow:visible}
+  .bank-right{min-height:400px}
+}
 @media (max-width:900px){
-  .hero,.purpose,.sequence,.animated-grid,.identify{grid-template-columns:1fr}.hero-photo,.purpose-photo{height:24vh;min-height:180px;order:-1}.purpose-cards{grid-template-columns:1fr}.rules-grid,.build-grid,.questions{grid-template-columns:1fr}.sequence-visual,.identify-photo{display:none}.animated-side{display:grid;grid-template-columns:1fr 1fr}.animated-side>div:first-child{grid-column:1/-1}.animated-photo{height:145px}.typing-stage{height:67vh}.typing-inner{max-height:39vh}.slide{padding-bottom:82px}.footer{bottom:7px}.navbar{bottom:35px}}
+  .hero,.purpose,.sequence,.animated-grid,.identify{grid-template-columns:1fr}
+  .hero-photo,.purpose-photo{height:22vh;min-height:160px;order:-1}
+  .purpose-cards,.rules-grid,.build-grid,.questions{grid-template-columns:1fr}
+  .sequence-visual,.identify-photo{display:none}
+  .animated-side{display:grid;grid-template-columns:1fr 1fr}
+  .animated-side>div:first-child{grid-column:1/-1}
+  .animated-photo{height:130px}
+  .typing-stage{height:64vh}
+  .slide{padding-bottom:80px}
+  .navbar{bottom:50px}
+  .phrase-grid{grid-template-columns:repeat(2,1fr)}
+  .dotnav{display:none}
+  .slide[data-title="Phrase bank"]{overflow-y:auto}
+}
 @media (max-width:620px){
-  h1{font-size:42px}.quote{font-size:26px}.topline .kicker{display:none}.hero-photo{height:24vh}.rule-box{grid-template-columns:34px 1fr}.rule-num{width:31px;height:31px}.seq{grid-template-columns:30px 1fr}.seq small{display:none}.build-box{min-height:auto}.animated-side{display:block}.animated-photo{height:145px;margin:8px 0}.typing-stage{height:61vh}.typing-card{width:98%;padding:21px 17px}.typing-inner{max-height:34vh}.typing-p{font-size:13px;line-height:1.4}.typing-photo-row{grid-template-columns:1fr 86px 1fr}.typing-photo{width:86px;height:100px}.typing-date{font-size:9px}.typing-sub{font-size:12px}.navbar{bottom:13px}.nav{width:40px;height:40px}.footer{display:none}.questions{margin-bottom:8px}}
-@media print{body{overflow:visible}.deck{height:auto}.slide{position:relative!important;display:flex!important;page-break-after:always;min-height:100vh}.navbar,.footer,.progress,.notes{display:none!important}}
-@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}.typing-caret{animation:none}}
+  h1{font-size:38px}
+  .quote{font-size:24px}
+  .topline .kicker{display:none}
+  .hero-photo,.purpose-photo{height:22vh}
+  .animated-side{display:block}
+  .typing-stage{height:58vh}
+  .typing-card{width:98%;padding:18px 15px}
+  .typing-photo-row{grid-template-columns:1fr 82px 1fr}
+  .typing-photo{width:82px;height:96px}
+  .phrase-grid{grid-template-columns:1fr}
+  .navbar{bottom:20px}
+  .footer{display:none}
+  .bank-right{min-height:360px}
+}
+@media print{
+  body{overflow:visible}
+  .deck{height:auto}
+  .slide{position:relative!important;display:flex!important;page-break-after:always;min-height:100vh}
+  .navbar,.footer,.progress,.notes,.dotnav{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .typing-p,.typing-sign{opacity:1}
+}
 </style>
 </head>
 <body>
 <main class="deck" id="deck" aria-label="Writing Messages of Condolence classroom presentation">
 
 <!-- 01 -->
-<section class="slide active" data-notes="Read the quote, pause briefly, then introduce the topic. Keep the opening under 20 seconds.">
-  <div class="topline"><span class="eyebrow">English • Guided Writing</span><span class="kicker">01 / 08</span></div>
+<section class="slide active" data-notes="Read the quote, pause briefly, then introduce the topic. Keep the opening under 20 seconds." data-title="Opening">
+  <div class="topline"><span class="eyebrow">English • Guided Writing</span><span class="kicker"><b>01</b> / 09 • Opening</span></div>
   <div class="hero">
     <div class="hero-copy">
       <div class="badge reveal"><i></i> Classroom presentation</div>
       <p class="quote reveal delay1"><span class="quote-mark">“</span>Sometimes, the simplest words carry the deepest sympathy.</p>
       <div class="rule reveal delay2"></div>
       <h1 class="reveal delay3">Writing Messages<br>of Condolence</h1>
-      <p class="small reveal delay4">Rules • format • examples • Nimsdai</p>
+      <p class="small reveal delay4">Rules • format • phrases • examples • Nimsdai</p>
     </div>
     <div class="hero-photo reveal delay2" aria-hidden="true">
-      <img src="assets/flowers.jpg" data-fallback="https://images.pexels.com/photos/6907845/pexels-photo-6907845.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Hands holding flowers" loading="eager" decoding="async">
-      <div class="hero-frame"></div><div class="hero-caption">WORDS • RESPECT • SYMPATHY</div>
+      <img src="assets/flowers.jpg" data-fallback="https://images.pexels.com/photos/6907845/pexels-photo-6907845.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Hands holding flowers" loading="eager" decoding="async">
     </div>
   </div>
 </section>
 
 <!-- 02 -->
-<section class="slide" data-notes="Define the task briefly. The class requirement is 75–100 words.">
-  <div class="topline"><span class="eyebrow">01 • What it is</span><span class="kicker">02 / 08</span></div>
+<section class="slide" data-notes="Define the task briefly. The class requirement is 75–100 words." data-title="What it is">
+  <div class="topline"><span class="eyebrow">01 • What it is</span><span class="kicker"><b>02</b> / 09 • Definition</span></div>
   <div class="purpose">
     <div class="purpose-copy">
       <div class="reveal"><span class="badge"><i></i> In one sentence</span><h2 style="margin-top:8px">A condolence message expresses grief, sympathy and comfort after a death.</h2></div>
@@ -171,14 +377,14 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
       </div>
       <div class="requirement reveal delay4"><span>Class requirement</span><strong>75–100 words</strong></div>
     </div>
-    <div class="photo purpose-photo reveal delay2"><img src="assets/writing.jpg" data-fallback="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1000&q=72" alt="Pen and handwritten work on paper" loading="lazy" decoding="async"><span class="photo-badge">WRITE WITH CARE</span></div>
+    <div class="purpose-photo reveal delay2"><img src="assets/writing.jpg" data-fallback="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=70" alt="Pen and handwritten work on paper" loading="lazy" decoding="async"></div>
   </div>
 </section>
 
 <!-- 03 -->
-<section class="slide" data-notes="These are the six points from the supplied textbook page. Read them as the rules to remember.">
-  <div class="topline"><span class="eyebrow">02 • Points to remember</span><span class="kicker">03 / 08</span></div>
-  <div class="reveal" style="margin-top:18px"><h2>The six points from the lesson.</h2><p class="small" style="margin-top:7px">Short, direct and easy to remember.</p></div>
+<section class="slide" data-notes="These are the six points from the supplied textbook page." data-title="Points to remember">
+  <div class="topline"><span class="eyebrow">02 • Points to remember</span><span class="kicker"><b>03</b> / 09 • Rules</span></div>
+  <div class="reveal" style="margin-top:16px"><h2>The six points from the lesson.</h2><p class="small" style="margin-top:6px">Short, direct and easy to remember.</p></div>
   <div class="rules-grid">
     <div class="rule-box reveal delay1"><span class="rule-num">01</span><div><strong>Express your grief and sympathy in the first sentence.</strong><p>Start directly and sincerely.</p></div></div>
     <div class="rule-box reveal delay2"><span class="rule-num">02</span><div><strong>Write one or two sentences about the deceased.</strong><p>Mention a respectful quality, work or contribution.</p></div></div>
@@ -191,8 +397,8 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
 </section>
 
 <!-- 04 -->
-<section class="slide" data-notes="Show the six-part sequence as the easiest way to remember the format before seeing the example.">
-  <div class="topline"><span class="eyebrow">03 • Format</span><span class="kicker">04 / 08</span></div>
+<section class="slide" data-notes="Show the six-part sequence." data-title="Format">
+  <div class="topline"><span class="eyebrow">03 • Format</span><span class="kicker"><b>04</b> / 09 • Structure</span></div>
   <div class="sequence">
     <div class="sequence-list">
       <div class="seq reveal delay1"><span class="n">1</span><div><b>Opening</b><span>Grief + sympathy</span></div><small>Start immediately.</small></div>
@@ -208,16 +414,15 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
         <div class="paper-block"><div class="paper-line mid"></div><div class="paper-line"></div><div class="paper-line short"></div></div>
         <div class="paper-block"><div class="paper-line"></div><div class="paper-line mid"></div><div class="paper-line short"></div></div>
         <div class="paper-block"><div class="paper-line mid"></div><div class="paper-line"></div><div class="paper-line short"></div></div>
-        <div class="paper-chip one">75–100 words</div><div class="paper-chip two">6 parts</div><div class="paper-chip three">Respectful tone</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 05 -->
-<section class="slide" data-notes="This slide contains only the six writing instructions. Do not reveal the Nimsdai example yet.">
-  <div class="topline"><span class="eyebrow">04 • Build the message</span><span class="kicker">05 / 08</span></div>
-  <div class="reveal" style="margin-top:18px"><h2>What goes into each part?</h2><p class="small" style="margin-top:7px">Each box is one simple writing job.</p></div>
+<section class="slide" data-notes="Ask students to suggest one word for each box." data-title="Build the message">
+  <div class="topline"><span class="eyebrow">04 • Build the message</span><span class="kicker"><b>05</b> / 09 • Writing</span></div>
+  <div class="reveal" style="margin-top:16px"><h2>What goes into each part?</h2><p class="small" style="margin-top:6px">Each box is one simple writing job.</p></div>
   <div class="build-grid">
     <div class="build-box reveal delay1"><div class="tag">01 • Opening</div><h3>Start with sympathy.</h3><p>Say clearly that you are sorry for the loss.</p><span class="sample">“We were deeply saddened to hear…”</span></div>
     <div class="build-box reveal delay2"><div class="tag">02 • Deceased</div><h3>Say something respectful.</h3><p>Use one or two sentences about the person.</p><span class="sample">“He was kind, honest and hardworking.”</span></div>
@@ -228,37 +433,163 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
   </div>
 </section>
 
-<!-- 06 ANIMATED -->
-<section class="slide" data-animated="true" data-notes="This is the main visual example. Let the portrait, dates and heading appear first, then let the three paragraphs write themselves. Use Reveal all if you want to finish early.">
-  <div class="topline"><span class="eyebrow">05 • Animated example</span><span class="kicker">06 / 08</span></div>
+<!-- 06 PHRASE BANK + GENERATOR -->
+<section class="slide" data-notes="Two-column slide. Left: phrase bank. Right: a randomly chosen person and a fully generated condolence letter that types itself out." data-title="Phrase bank">
+  <div class="topline"><span class="eyebrow">05 • Phrase bank</span><span class="kicker"><b>06</b> / 09 • Vocabulary</span></div>
+  <div class="phrase-intro">
+    <div class="reveal"><h2 style="margin:0">Useful words and phrases.</h2><p class="small" style="margin-top:6px">Click one phrase from each column. A complete condolence letter is written on the right.</p></div>
+    <div class="try-hint reveal delay1"><i></i> Try it — click to assemble</div>
+  </div>
+
+  <div class="bank-layout">
+    <div class="bank-left reveal delay1">
+      <div class="phrase-grid">
+        <div class="phrase-card sympathy" data-part="1">
+          <div class="tag"><span class="num">1</span> Opening</div>
+          <h3>Express sympathy</h3>
+          <ul>
+            <li>We are deeply saddened to hear of the passing of</li>
+            <li>It is with great sorrow that we learned of the passing of</li>
+            <li>We were shocked and grieved to hear of the passing of</li>
+            <li>Please accept our deepest sympathy on the passing of</li>
+          </ul>
+        </div>
+        <div class="phrase-card remember" data-part="2">
+          <div class="tag"><span class="num">2</span> Deceased</div>
+          <h3>Remember the person</h3>
+          <ul>
+            <li>was a kind and generous soul</li>
+            <li>was admired for honesty and integrity</li>
+            <li>devoted a lifetime of service to the community</li>
+            <li>will always be remembered for warmth and humility</li>
+          </ul>
+        </div>
+        <div class="phrase-card condolence" data-part="3">
+          <div class="tag"><span class="num">3</span> Condolence</div>
+          <h3>Address the family</h3>
+          <ul>
+            <li>We extend our heartfelt condolences to the family and loved ones</li>
+            <li>Our thoughts and prayers are with the family in this difficult hour</li>
+            <li>We share in your grief and stand with you in this time of loss</li>
+            <li>Please accept our sincere sympathy and support during this time</li>
+          </ul>
+        </div>
+        <div class="phrase-card prayer" data-part="4">
+          <div class="tag"><span class="num">4</span> Prayer</div>
+          <h3>Pray for the departed</h3>
+          <ul>
+            <li>May the departed soul rest in eternal peace</li>
+            <li>May the soul find everlasting peace in the presence of God</li>
+            <li>May God grant the departed soul eternal rest and serenity</li>
+            <li>May the departed soul rest in heaven and watch over us</li>
+          </ul>
+        </div>
+        <div class="phrase-card comfort" data-part="5">
+          <div class="tag"><span class="num">5</span> Comfort</div>
+          <h3>Offer strength</h3>
+          <ul>
+            <li>May the family find strength and comfort in this difficult time</li>
+            <li>May God give the family courage and patience to bear this loss</li>
+            <li>Our prayers are with the family, and we pray for peace and healing</li>
+            <li>We are here for the family in this hour of grief and sorrow</li>
+          </ul>
+        </div>
+        <div class="phrase-card ending" data-part="6">
+          <div class="tag"><span class="num">6</span> Ending</div>
+          <h3>Close the message</h3>
+          <ul>
+            <li>With deepest sympathy,</li>
+            <li>Yours sincerely,</li>
+            <li>With heartfelt condolences,</li>
+            <li>With prayers and warm regards,</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phrase-mixer" aria-live="polite">
+        <div class="label"><span>Your selection</span><button class="clear" id="clearMixer" type="button">Clear</button></div>
+        <div class="out" id="mixerOut"><span class="ph">Click a phrase above to start building your condolence message…</span></div>
+        <div class="phrase-actions">
+          <button class="btn primary" id="generateBtn" type="button">✦ Generate message</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bank-right reveal delay2">
+      <div class="gen-placeholder" id="genPlaceholder">
+        <div class="gp-icon">✎</div>
+        <p><b>Your condolence letter</b><br>will be written here.</p>
+        <p class="small">Pick phrases on the left, then click <b>Generate message</b>.</p>
+      </div>
+
+      <div class="gen-panel" id="genPanel" role="region" aria-label="Generated condolence message" aria-live="polite">
+        <div class="gen-head">
+          <span class="t"><i></i> Generated letter</span>
+          <div class="meta">
+            <span class="pill" id="genWords">0 words</span>
+            <span class="pill warn" id="genParts">0 / 6 parts</span>
+            <button type="button" id="genCopy">Copy</button>
+          </div>
+        </div>
+        <div class="gen-body">
+          <div class="gen-card">
+            <div class="gen-title">CONDOLENCE</div>
+            <div class="gen-photo-row">
+              <div class="gen-date left" id="genDob"><span>D.O.B.</span>—</div>
+              <div class="gen-photo" aria-hidden="true"><div><strong>PHOTO</strong>of the<br>deceased</div></div>
+              <div class="gen-date right" id="genDod"><span>D.O.D.</span>—</div>
+            </div>
+            <div class="gen-name" id="genName">Late Mr. / Ms. —</div>
+            <div class="gen-dates-line" id="genDatesLine">—</div>
+            <div class="gen-rule"></div>
+            <div class="gen-text" id="genText"></div>
+            <div class="gen-sign" id="genSign">With deepest sympathy,<br>Your name and address</div>
+          </div>
+        </div>
+        <div class="gen-hint" id="genHint"><i></i> Selection changed — generate again to update</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ANIMATED -->
+<section class="slide" data-notes="Portrait, dates and name appear first, then the paragraphs type themselves out." data-title="Animated example">
+  <div class="topline"><span class="eyebrow">06 • Animated example</span><span class="kicker"><b>07</b> / 09 • Nimsdai</span></div>
   <div class="animated-grid">
     <div class="animated-side">
-      <div class="reveal"><span class="badge"><i></i> Nirmal “Nimsdai” Purja</span><h2 style="margin-top:8px">Watch the message write itself.</h2><p class="small" style="margin-top:10px">The portrait, dates and name are shown first. The message then appears paragraph by paragraph.</p></div>
-      <div class="photo animated-photo reveal delay1"><img src="assets/mountains.jpg" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=72" alt="Snow-covered mountain landscape" loading="lazy" decoding="async"><span class="photo-badge">REMEMBER • HONOUR • COMFORT</span></div>
-      <div class="write-tools reveal delay2"><button class="btn" id="replayBtn">Replay writing</button><button class="btn" id="revealBtn">Reveal all</button></div>
+      <div class="reveal"><span class="badge"><i></i> Nirmal “Nimsdai” Purja</span><h2 style="margin-top:8px">Watch the message write itself.</h2><p class="small" style="margin-top:8px">The portrait, dates and name are shown first. The message then appears paragraph by paragraph.</p></div>
+      <div class="animated-photo reveal delay1"><img src="assets/mountains.jpg" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=70" alt="Snow-covered mountain landscape" loading="lazy" decoding="async"></div>
+      <div class="write-tools reveal delay2">
+        <button class="btn" id="replayBtn">↺ Replay writing</button>
+        <button class="btn" id="revealBtn">Reveal all</button>
+        <button class="btn primary" id="copyBtn">Copy text</button>
+      </div>
     </div>
     <div class="typing-stage reveal delay2">
       <article class="typing-card" aria-label="Animated sample condolence notice for Nirmal Nimsdai Purja">
         <div class="typing-head">CONDOLENCE</div>
         <div class="typing-photo-row">
-          <div class="typing-date left"><span style="display:block;font:700 9px Arial,sans-serif;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px">Birth</span><strong>25 July 1983</strong></div>
+          <div class="typing-date left"><span style="display:block;font:700 9px Arial,sans-serif;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:2px">Birth</span><strong>25 July 1983</strong></div>
           <div class="typing-photo"><img src="nims.jpg" alt="Portrait of Nirmal Nimsdai Purja" loading="eager" decoding="async"><div class="nims-placeholder" aria-hidden="true">Add<br><strong>nims.jpg</strong><br>beside index.html</div></div>
-          <div class="typing-date right"><span style="display:block;font:700 9px Arial,sans-serif;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px">Death</span><strong>30 July 2026</strong></div>
+          <div class="typing-date right"><span style="display:block;font:700 9px Arial,sans-serif;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:2px">Death</span><strong>30 July 2026</strong></div>
         </div>
         <div class="typing-sub">Late Mr. Nirmal “Nimsdai” Purja</div>
         <div class="typing-rule"></div>
         <div class="typing-inner" id="typingHolder" aria-live="polite"></div>
         <div class="typing-sign" id="typingSign" hidden>Sample School English Club<br>Kathmandu, Nepal</div>
-        <div class="typing-tools"><span class="badge" style="font-size:9px"><i></i> 89 words</span></div>
+        <div class="typing-meta">
+          <span class="badge" style="font-size:9px"><i></i> 3 paragraphs • 6 parts</span>
+          <span class="wordcount">Words <b id="wordCount">0</b></span>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- 07 -->
-<section class="slide" data-notes="Ask students to identify the six parts. Point from the opening sentence through the final name and address.">
-  <div class="topline"><span class="eyebrow">06 • See the structure</span><span class="kicker">07 / 08</span></div>
-  <div class="reveal" style="margin-top:18px"><h2>Can you spot the six parts?</h2><p class="small" style="margin-top:7px">Read the example in this order.</p></div>
+<!-- 08 -->
+<section class="slide" data-notes="Ask students to identify the six parts." data-title="See the structure">
+  <div class="topline"><span class="eyebrow">07 • See the structure</span><span class="kicker"><b>08</b> / 09 • Analysis</span></div>
+  <div class="reveal" style="margin-top:16px"><h2>Can you spot the six parts?</h2><p class="small" style="margin-top:6px">Read the example in this order.</p></div>
   <div class="identify">
     <div class="identify-list">
       <div class="idrow reveal delay1"><span class="n">1</span><div><b>Grief + sympathy</b><p>“We are deeply saddened…”</p></div></div>
@@ -269,17 +600,17 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
       <div class="idrow reveal delay6"><span class="n">6</span><div><b>Name + address</b><p>Write the sender’s details at the end.</p></div></div>
     </div>
     <div class="identify-photo reveal delay2">
-      <img src="assets/mountains.jpg" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=72" alt="Snow mountain landscape" loading="lazy" decoding="async">
+      <img src="assets/mountains.jpg" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=70" alt="Snow mountain landscape" loading="lazy" decoding="async">
       <div class="identify-overlay"></div>
       <div class="identify-title"><b>Nimsdai example</b><span>The message is short.<br>The structure does the work.</span></div>
     </div>
   </div>
 </section>
 
-<!-- 08 -->
-<section class="slide" data-notes="Ask the class to answer aloud before anyone taps. Reveal the correct choice. End by reading the final six-part sequence once.">
-  <div class="topline"><span class="eyebrow">07 • Class challenge</span><span class="kicker">08 / 08</span></div>
-  <div class="reveal" style="margin-top:18px"><h2>Let’s see what you remember.</h2><p class="small" style="margin-top:7px">Answer first. Tap second.</p></div>
+<!-- 09 -->
+<section class="slide" data-notes="Ask the class to answer aloud before anyone taps." data-title="Class challenge">
+  <div class="topline"><span class="eyebrow">08 • Class challenge</span><span class="kicker"><b>09</b> / 09 • Quiz</span></div>
+  <div class="reveal" style="margin-top:16px"><h2>Let’s see what you remember.</h2><p class="small" style="margin-top:6px">Answer first. Tap second.</p></div>
   <div class="questions">
     <div class="q reveal delay1"><h3>1. What should the first sentence express?</h3><div class="answers"><button class="answer" data-correct="false">A story</button><button class="answer" data-correct="true">Grief & sympathy</button><button class="answer" data-correct="false">Advice</button></div></div>
     <div class="q reveal delay2"><h3>2. What is the word limit?</h3><div class="answers"><button class="answer" data-correct="false">20–30</button><button class="answer" data-correct="true">75–100</button><button class="answer" data-correct="false">150–200</button></div></div>
@@ -289,17 +620,21 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
   <div class="final-remember reveal delay5">Remember: <strong>Grief → Person → Condolence → Prayer → Comfort → Name & Address</strong> &nbsp;•&nbsp; <strong>75–100 words</strong></div>
 </section>
 
-<div class="navbar" aria-label="Presentation controls"><button class="nav" id="prev" aria-label="Previous slide">‹</button><button class="nav" id="next" aria-label="Next slide">›</button></div>
-<div class="footer"><span>Writing Messages of Condolence • Classroom presentation • Add your <b>nims.jpg</b> beside <b>index.html</b>.</span><span id="counter">1 / 08</span></div>
+<div class="navbar"><button class="nav" id="prev" aria-label="Previous slide">‹</button><button class="nav" id="next" aria-label="Next slide">›</button></div>
+<div class="dotnav" id="dotnav" role="tablist" aria-label="Slide navigation"></div>
+<div class="footer">
+  <span>Writing Messages of Condolence • Smart Board Edition • Add your <b>nims.jpg</b> beside <b>index.html</b>.</span>
+  <span class="keys" title="R = replay • F = fullscreen • N = notes • ←/→ = navigate">Keys: <b>←→</b> • <b>R</b> • <b>F</b> • <b>N</b></span>
+</div>
 <div class="progress" id="progress"></div>
 <div class="notes" id="notes" aria-hidden="true"><div class="notes-panel"><h3>Presenter note</h3><p id="notesText"></p><button class="btn" id="closeNotes">Close</button></div></div>
 </main>
 <script>
 (function(){
   'use strict';
+
+  /* ---------- element references ---------- */
   var slides=[].slice.call(document.querySelectorAll('.slide'));
-  var index=0, locked=false;
-  var counter=document.getElementById('counter');
   var progress=document.getElementById('progress');
   var prev=document.getElementById('prev');
   var next=document.getElementById('next');
@@ -311,125 +646,452 @@ p,li{font-size:clamp(15px,1.48vw,20px);line-height:1.5}
   var typingSign=document.getElementById('typingSign');
   var replayBtn=document.getElementById('replayBtn');
   var revealBtn=document.getElementById('revealBtn');
+  var copyBtn=document.getElementById('copyBtn');
+  var wordCountEl=document.getElementById('wordCount');
+  var dotnav=document.getElementById('dotnav');
+  var mixerOut=document.getElementById('mixerOut');
+  var clearMixer=document.getElementById('clearMixer');
+  var generateBtn=document.getElementById('generateBtn');
+  var genPanel=document.getElementById('genPanel');
+  var genPlaceholder=document.getElementById('genPlaceholder');
+  var genText=document.getElementById('genText');
+  var genWords=document.getElementById('genWords');
+  var genParts=document.getElementById('genParts');
+  var genCopy=document.getElementById('genCopy');
+  var genHint=document.getElementById('genHint');
+  var genName=document.getElementById('genName');
+  var genDatesLine=document.getElementById('genDatesLine');
+  var genDob=document.getElementById('genDob');
+  var genDod=document.getElementById('genDod');
+  var genSign=document.getElementById('genSign');
+  var genBody=genPanel?genPanel.querySelector('.gen-body'):null;
+
+  /* ---------- state ---------- */
+  var index=0, locked=false;
   var timer=null, runId=0;
   var reduced=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var animatedIndex=5;
+  var animatedIndex=6;
+  var picked={};
+  var lastGeneratedSignature='';
+  var copyBusy=false;
+  var genRunId=0;
+  var genTimer=null;
+  var currentPerson=null;
 
-  function setupImage(img){
-    img.addEventListener('error',function(){
-      if(img.dataset.fallback && img.src.indexOf(img.dataset.fallback)===-1){
-        img.src=img.dataset.fallback;
-        return;
-      }
-      var ph=img.parentNode && img.parentNode.querySelector('.nims-placeholder');
-      if(ph){
-        img.style.display='none';
-        ph.style.display='grid';
-      }else if(img.parentNode){
-        img.style.display='none';
-        img.parentNode.classList.add('image-missing');
-      }
-    });
-  }
-  var imgs=[].slice.call(document.images);
-  imgs.forEach(setupImage);
+  /* ---------- performance detection ---------- */
+  var veryLowEnd=false;
+  try{
+    var cores=navigator.hardwareConcurrency||4;
+    var mem=navigator.deviceMemory||4;
+    if(cores<=2||mem<=1){veryLowEnd=true;}
+  }catch(e){}
 
-  var blocks=[
-    'We are deeply saddened by the passing of Nirmal “Nimsdai” Purja, Nepal’s renowned mountaineer and a source of great pride to the nation.',
-    'He was admired for his courage, determination and service. He inspired people around the world through his remarkable achievements and his record-breaking climb of all fourteen 8,000-metre peaks in six months and six days.',
-    'We extend our heartfelt condolences to his family, friends and all who mourn his loss. May his departed soul rest in peace, and may his memory continue to inspire future generations.'
+  /* ---------- person pool ---------- */
+  var peoplePool=[
+    {name:'Late Mr. Bhim Bahadur Thapa', gender:'he', dob:'12 February 1948', dod:'3 August 2026', role:'a respected teacher and community leader', quality:'patience, honesty and a lifelong devotion to education', years:'more than four decades', field:'education'},
+    {name:'Late Mrs. Sarala Devi Karki', gender:'she', dob:'5 June 1952', dod:'17 July 2026', role:'a well-known social worker and women’s rights advocate', quality:'compassion, courage and quiet determination', years:'over thirty years', field:'social service'},
+    {name:'Late Dr. Rajesh Manandhar', gender:'he', dob:'23 October 1959', dod:'29 June 2026', role:'a distinguished physician and public-health researcher', quality:'integrity, humility and dedicated service to patients', years:'nearly forty years', field:'medicine'},
+    {name:'Late Ms. Anjali Gurung', gender:'she', dob:'8 March 1971', dod:'14 August 2026', role:'an award-winning journalist and advocate for press freedom', quality:'fearless reporting, fairness and kindness to younger writers', years:'more than twenty-five years', field:'journalism'},
+    {name:'Late Mr. Prakash Bahadur Shahi', gender:'he', dob:'30 December 1945', dod:'2 September 2026', role:'a decorated former army officer and community mentor', quality:'discipline, generosity and devotion to public service', years:'over five decades', field:'public service'},
+    {name:'Late Mrs. Gita Kumari Adhikari', gender:'she', dob:'18 April 1963', dod:'22 May 2026', role:'a beloved school principal and literacy campaigner', quality:'warmth, patience and a lifelong love of learning', years:'more than thirty-five years', field:'education'},
+    {name:'Late Mr. Suresh Chandra Rai', gender:'he', dob:'7 September 1950', dod:'11 August 2026', role:'a respected engineer and pioneer of rural infrastructure', quality:'vision, precision and a deep sense of duty', years:'more than four decades', field:'engineering'},
+    {name:'Late Ms. Purnima Shrestha', gender:'she', dob:'2 January 1978', dod:'30 July 2026', role:'a renowned classical dancer and cultural ambassador', quality:'grace, dedication and generosity toward young artists', years:'more than twenty years', field:'the arts'}
   ];
 
-  function stopTyping(){
-    runId++;
-    if(timer){clearTimeout(timer);timer=null;}
+  function pickRandomPerson(){
+    var p;
+    do{p=peoplePool[Math.floor(Math.random()*peoplePool.length)];}
+    while(currentPerson && p.name===currentPerson.name && peoplePool.length>1);
+    currentPerson=p;
+    return p;
   }
+
+  /* ---------- helpers ---------- */
+  function pad2(n){return String(n).padStart(2,'0');}
+  function signatureOfPicked(){return ['1','2','3','4','5','6'].map(function(p){return picked[p]||'';}).join('|');}
+  function countWords(str){return (str||'').trim().split(/\s+/).filter(Boolean).length;}
+  function fallbackCopy(text,cb){
+    var ta=document.createElement('textarea');
+    ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');cb&&cb();}catch(err){}
+    document.body.removeChild(ta);
+  }
+  function copyToClipboard(text,cb){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(cb).catch(function(){fallbackCopy(text,cb);});
+    }else{fallbackCopy(text,cb);}
+  }
+
+  /* ---------- image fallbacks ---------- */
+  function setupImage(img){
+    img.addEventListener('error',function(){
+      if(img.dataset.fallback && img.src.indexOf(img.dataset.fallback)===-1){img.src=img.dataset.fallback;return;}
+      var ph=img.parentNode && img.parentNode.querySelector('.nims-placeholder');
+      if(ph){img.style.display='none';ph.style.display='grid';}
+      else if(img.parentNode){img.style.display='none';img.parentNode.style.background='#efe6d8';}
+    });
+  }
+  [].slice.call(document.images).forEach(setupImage);
+
+  /* ---------- dot navigation ---------- */
+  slides.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.type='button';
+    b.setAttribute('role','tab');
+    b.setAttribute('aria-label','Go to slide '+(i+1)+': '+(s.getAttribute('data-title')||''));
+    b.title=(i+1)+'. '+(s.getAttribute('data-title')||'');
+    b.addEventListener('click',function(){setSlide(i,i>index?1:-1);});
+    dotnav.appendChild(b);
+  });
+  var dots=[].slice.call(dotnav.children);
+
+  /* ---------- Nimsdai text (updated) ---------- */
+  var blocks=[
+    'We are deeply saddened by the heartbreaking loss of Nirmal "Nimsdai" Purja and his dedicated teammates. We offer our thoughts and prayers to everyone who is mourning this immense tragedy.',
+    'Nimsdai inspired the world with his unmatched strength, his kind heart, and his absolute fearlessness. He broke boundaries that many thought were impossible, yet he always remained dedicated to supporting others and uplifting the global climbing community. His life was a beautiful example of what can be achieved through hard work and a brave heart.',
+    'To his family and loved ones, please accept our sincerest condolences. We hope you find comfort in knowing how deeply he was loved and respected around the globe. While he is no longer with us, his steps will never be washed away, and his memory will always shine brightly at the top of the world. May he rest in peace.'
+  ];
+
+  function updateWordCount(){
+    if(!wordCountEl||!typingHolder)return;
+    var text=(typingHolder.textContent||'').trim();
+    wordCountEl.textContent=text?text.split(/\s+/).length:0;
+  }
+  function stopTyping(){runId++;if(timer){clearTimeout(timer);timer=null;}}
   function renderAll(){
     stopTyping();
     if(!typingHolder)return;
     typingHolder.innerHTML='';
-    for(var i=0;i<blocks.length;i++){
-      var p=document.createElement('p');
-      p.className='typing-p';
-      p.textContent=blocks[i];
-      typingHolder.appendChild(p);
-    }
+    blocks.forEach(function(t){
+      var p=document.createElement('p');p.className='typing-p';p.textContent=t;typingHolder.appendChild(p);
+    });
     if(typingSign)typingSign.hidden=false;
+    updateWordCount();
   }
   function startTyping(){
     stopTyping();
     if(!typingHolder)return;
     typingHolder.innerHTML='';
     if(typingSign)typingSign.hidden=true;
-    if(reduced){renderAll();return;}
+    updateWordCount();
+    if(reduced||veryLowEnd){renderAll();return;}
     var localRun=runId;
     var bi=0;
     var ps=[];
     for(var j=0;j<blocks.length;j++){
-      var p=document.createElement('p');
-      p.className='typing-p';
-      typingHolder.appendChild(p);
-      ps.push(p);
+      var p=document.createElement('p');p.className='typing-p';typingHolder.appendChild(p);ps.push(p);
     }
     function writeParagraph(){
       if(localRun!==runId)return;
-      if(bi>=blocks.length){if(typingSign)typingSign.hidden=false;return;}
+      if(bi>=blocks.length){if(typingSign)typingSign.hidden=false;updateWordCount();return;}
       var text=blocks[bi], p=ps[bi], i=0;
       function tick(){
         if(localRun!==runId)return;
         i=Math.min(text.length,i+2);
         p.textContent=text.slice(0,i);
-        if(i<text.length){timer=setTimeout(tick,28);}else{bi++;timer=setTimeout(writeParagraph,520);}
+        updateWordCount();
+        if(i<text.length){timer=setTimeout(tick,28);}
+        else{bi++;timer=setTimeout(writeParagraph,520);}
       }
       tick();
     }
     timer=setTimeout(writeParagraph,300);
   }
-  function setSlide(n){
+
+  /* ---------- mixer ---------- */
+  function renderMixer(){
+    if(!mixerOut)return;
+    var parts=['1','2','3','4','5','6'];
+    var assembled=parts.map(function(p){return picked[p];}).filter(Boolean);
+    if(assembled.length===0){
+      mixerOut.innerHTML='<span class="ph">Click a phrase above to start building your condolence message…</span>';
+    }else{
+      var words=countWords(assembled.join(' '));
+      mixerOut.innerHTML='<span>'+assembled.join(' ')+'</span><span class="count">'+words+' words • '+assembled.length+' / 6 parts</span>';
+    }
+    if(genPanel && genPanel.classList.contains('show')){
+      if(signatureOfPicked()!==lastGeneratedSignature){genHint.classList.add('show');}
+      else{genHint.classList.remove('show');}
+    }
+  }
+
+  /* ---------- detailed letter builder ---------- */
+  function buildDetailedLetter(person){
+    var p1=picked['1'], p2=picked['2'], p3=picked['3'], p4=picked['4'], p5=picked['5'];
+    var name=person.name.replace(/^Late\s+/,'');
+    var fullName=person.name;
+    var role=person.role;
+    var quality=person.quality;
+    var years=person.years;
+    var field=person.field;
+    var gender=person.gender;
+    var subj=gender==='she'?'she':'he';
+    var obj=gender==='she'?'her':'him';
+    var poss=gender==='she'?'her':'his';
+
+    var para1;
+    if(p1){para1=p1+' '+fullName+', '+role+'.';}
+    else{para1='We are deeply saddened to learn of the passing of '+fullName+', '+role+'.';}
+
+    var para2=fullName+' was born on '+person.dob+' and grew up to become '+role+'. '+
+      'For '+years+', '+subj+' worked tirelessly in the field of '+field+', and '+poss+
+      ' dedication to '+quality+' earned '+obj+' the respect and admiration of everyone who knew '+obj+'.';
+
+    var para3;
+    if(p2){
+      para3=fullName+' '+p2+'. '+
+        poss.charAt(0).toUpperCase()+poss.slice(1)+' contribution to '+field+
+        ' will be remembered for many years to come, and '+subj+
+        ' leaves behind a legacy of service and integrity that will continue to inspire future generations.';
+    }else{
+      para3=fullName+' was known for '+quality+'. '+
+        poss.charAt(0).toUpperCase()+poss.slice(1)+' contribution to '+field+
+        ' will be remembered for many years to come, and '+subj+
+        ' leaves behind a legacy of service and integrity that will continue to inspire future generations.';
+    }
+
+    var para4;
+    if(p3){para4=p3+' of '+name+'.';}
+    else{para4='We extend our heartfelt condolences to the family and loved ones of '+name+'.';}
+    if(p4){para4+=' '+p4+'.';}
+    else{para4+=' May '+poss+' departed soul rest in eternal peace.';}
+
+    var para5;
+    if(p5){para5=p5+'.';}
+    else{para5='May the family and loved ones of '+name+' find strength and comfort in this difficult time.';}
+    para5+=' We share in your grief and offer our prayers to all who mourn '+obj+
+      '. We pray that God grants the family the courage to bear this irreparable loss.';
+
+    var para6='On behalf of all of us, we respectfully bid farewell to '+name+'. '+
+      poss.charAt(0).toUpperCase()+poss.slice(1)+' life, '+poss+' work and '+poss+
+      ' quiet dedication to '+field+' will never be forgotten. '+
+      'May '+poss+' memory be a blessing to everyone who had the privilege of knowing '+obj+'.';
+
+    return [para1,para2,para3,para4,para5,para6];
+  }
+
+  /* ---------- generated letter with typing animation ---------- */
+  function stopGenTyping(){
+    genRunId++;
+    if(genTimer){clearTimeout(genTimer);genTimer=null;}
+  }
+  function renderGenerated(person,instant){
+    stopGenTyping();
+    if(!genText)return;
+
+    if(genName)genName.textContent=person.name;
+    if(genDob)genDob.innerHTML='<span>D.O.B.</span>'+person.dob;
+    if(genDod)genDod.innerHTML='<span>D.O.D.</span>'+person.dod;
+    if(genDatesLine)genDatesLine.textContent='D.O.B. '+person.dob+' • D.O.D. '+person.dod;
+
+    var paras=buildDetailedLetter(person);
+    genText.innerHTML='';
+    if(genSign)genSign.classList.remove('show');
+
+    var fullText=paras.join(' ');
+    var wc=countWords(fullText);
+    if(genWords)genWords.textContent=wc+' words';
+    var n=Object.keys(picked).filter(function(k){return picked[k];}).length;
+    if(genParts){
+      genParts.textContent=n+' / 6 parts';
+      genParts.className='pill '+(n===6?'ok':'warn');
+    }
+
+    var sign=picked['6']?picked['6']:'With deepest sympathy,';
+    if(genSign)genSign.innerHTML=sign+'<br>Your name and address';
+
+    if(instant||reduced||veryLowEnd){
+      paras.forEach(function(text){
+        var p=document.createElement('p');p.textContent=text;genText.appendChild(p);
+      });
+      if(genSign)genSign.classList.add('show');
+      if(genBody)genBody.scrollTop=0;
+      return;
+    }
+
+    /* character-by-character typing inside the right column */
+    var localRun=genRunId;
+    var bi=0;
+    var ps=[];
+    for(var j=0;j<paras.length;j++){
+      var p=document.createElement('p');
+      p.textContent='';
+      genText.appendChild(p);
+      ps.push(p);
+    }
+    function writeParagraph(){
+      if(localRun!==genRunId)return;
+      if(bi>=paras.length){if(genSign)genSign.classList.add('show');return;}
+      var text=paras[bi], p=ps[bi], i=0;
+      function tick(){
+        if(localRun!==genRunId)return;
+        i=Math.min(text.length,i+2);
+        p.textContent=text.slice(0,i);
+        if(genBody){genBody.scrollTop=genBody.scrollHeight;}
+        if(i<text.length){
+          genTimer=setTimeout(tick,20);
+        }else{
+          bi++;
+          genTimer=setTimeout(writeParagraph,420);
+        }
+      }
+      tick();
+    }
+    genTimer=setTimeout(writeParagraph,240);
+  }
+
+  /* ---------- phrase click handlers ---------- */
+  [].slice.call(document.querySelectorAll('.phrase-card ul')).forEach(function(ul){
+    var part=ul.parentNode.getAttribute('data-part');
+    [].slice.call(ul.querySelectorAll('li')).forEach(function(li){
+      li.addEventListener('click',function(e){
+        e.stopPropagation();
+        [].slice.call(ul.querySelectorAll('li')).forEach(function(x){x.classList.remove('picked');});
+        if(picked[part]===li.textContent){delete picked[part];}
+        else{picked[part]=li.textContent;li.classList.add('picked');}
+        renderMixer();
+      });
+    });
+  });
+
+  if(clearMixer){
+    clearMixer.addEventListener('click',function(){
+      picked={};
+      [].slice.call(document.querySelectorAll('.phrase-card li.picked')).forEach(function(x){x.classList.remove('picked');});
+      stopGenTyping();
+      if(genPanel)genPanel.classList.remove('show','flash');
+      if(genPlaceholder)genPlaceholder.style.display='';
+      if(genText)genText.innerHTML='';
+      lastGeneratedSignature='';
+      renderMixer();
+    });
+  }
+
+  if(generateBtn){
+    generateBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var person=pickRandomPerson();
+      genPanel.classList.add('show','flash');
+      if(genPlaceholder)genPlaceholder.style.display='none';
+      setTimeout(function(){genPanel.classList.remove('flash');},1200);
+      genHint.classList.remove('show');
+      lastGeneratedSignature=signatureOfPicked();
+      setTimeout(function(){renderGenerated(person,false);},120);
+    });
+  }
+
+  if(genCopy){
+    genCopy.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(copyBusy)return;
+      var person=currentPerson;
+      if(!person)return;
+      var paras=buildDetailedLetter(person);
+      var text='CONDOLENCE\n\n'+person.name+'\nD.O.B. '+person.dob+'  •  D.O.D. '+person.dod+'\n\n'+paras.join('\n\n')+'\n\n'+(genSign?genSign.innerText:'With deepest sympathy,');
+      copyBusy=true;
+      var old=genCopy.textContent;
+      copyToClipboard(text,function(){
+        genCopy.textContent='✓ Copied';
+        setTimeout(function(){genCopy.textContent=old;copyBusy=false;},1200);
+      });
+    });
+  }
+
+  /* ---------- slide control ---------- */
+  function setSlide(n,dir){
     if(locked)return;
     n=Math.max(0,Math.min(slides.length-1,n));
     if(n===index){if(index===animatedIndex)startTyping();return;}
     locked=true;
     stopTyping();
+    stopGenTyping();
     index=n;
     slides.forEach(function(s,i){s.classList.toggle('active',i===index);});
-    counter.textContent=(index+1)+' / 08';
+    var k=slides[index].querySelector('.kicker b');
+    if(k)k.textContent=pad2(index+1);
     progress.style.width=((index+1)/slides.length*100)+'%';
+    dots.forEach(function(d,i){d.classList.toggle('on',i===index);d.setAttribute('aria-selected',i===index?'true':'false');});
     notesText.textContent=slides[index].getAttribute('data-notes')||'';
-    if(index===animatedIndex){setTimeout(startTyping,160);}
-    setTimeout(function(){locked=false;},280);
+    var bl=slides[index].querySelector('.bank-left');
+    if(bl)bl.scrollTop=0;
+    if(index===animatedIndex){setTimeout(startTyping,180);}
+    setTimeout(function(){locked=false;},260);
   }
-  prev.addEventListener('click',function(){setSlide(index-1)});
-  next.addEventListener('click',function(){setSlide(index+1)});
-  replayBtn.addEventListener('click',function(e){e.stopPropagation();startTyping()});
-  revealBtn.addEventListener('click',function(e){e.stopPropagation();renderAll()});
-  closeNotes.addEventListener('click',function(){notes.classList.remove('open');notes.setAttribute('aria-hidden','true')});
-  document.addEventListener('keydown',function(e){
-    var k=e.key;
-    if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();setSlide(index+1)}
-    else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();setSlide(index-1)}
-    else if(k==='Home'){e.preventDefault();setSlide(0)}
-    else if(k==='End'){e.preventDefault();setSlide(slides.length-1)}
-    else if((k||'').toLowerCase()==='r' && index===animatedIndex){e.preventDefault();startTyping()}
-    else if((k||'').toLowerCase()==='n'){e.preventDefault();notes.classList.toggle('open');notes.setAttribute('aria-hidden',notes.classList.contains('open')?'false':'true')}
-    else if(k==='Escape'){notes.classList.remove('open');notes.setAttribute('aria-hidden','true')}
-    else if((k||'').toLowerCase()==='f'){e.preventDefault();if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen();}else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}}
+  prev.addEventListener('click',function(){setSlide(index-1,-1);});
+  next.addEventListener('click',function(){setSlide(index+1,1);});
+
+  if(replayBtn)replayBtn.addEventListener('click',function(e){e.stopPropagation();startTyping();});
+  if(revealBtn)revealBtn.addEventListener('click',function(e){e.stopPropagation();renderAll();});
+  if(copyBtn)copyBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(copyBusy)return;
+    copyBusy=true;
+    var old=copyBtn.textContent;
+    copyToClipboard(blocks.join('\n\n'),function(){
+      copyBtn.textContent='✓ Copied';
+      setTimeout(function(){copyBtn.textContent=old;copyBusy=false;},1200);
+    });
   });
+
+  if(closeNotes)closeNotes.addEventListener('click',function(){
+    notes.classList.remove('open');notes.setAttribute('aria-hidden','true');
+  });
+
+  /* ---------- keyboard ---------- */
+  function isFormField(el){
+    if(!el)return false;
+    var tag=(el.tagName||'').toLowerCase();
+    return tag==='input'||tag==='textarea'||tag==='select'||el.isContentEditable;
+  }
+  document.addEventListener('keydown',function(e){
+    if(isFormField(e.target))return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();setSlide(index+1,1);}
+    else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();setSlide(index-1,-1);}
+    else if(k==='Home'){e.preventDefault();setSlide(0,-1);}
+    else if(k==='End'){e.preventDefault();setSlide(slides.length-1,1);}
+    else if((k||'').toLowerCase()==='r' && index===animatedIndex){e.preventDefault();startTyping();}
+    else if((k||'').toLowerCase()==='n'){e.preventDefault();notes.classList.toggle('open');notes.setAttribute('aria-hidden',notes.classList.contains('open')?'false':'true');}
+    else if(k==='Escape'){notes.classList.remove('open');notes.setAttribute('aria-hidden','true');}
+    else if((k||'').toLowerCase()==='f'){
+      e.preventDefault();
+      if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen();}
+      else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}
+    }
+  });
+
+  /* ---------- swipe ---------- */
   var sx=0,sy=0;
   deck.addEventListener('touchstart',function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
-  deck.addEventListener('touchend',function(e){if(!sx)return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=sy=0;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy))setSlide(index+(dx<0?1:-1));},{passive:true});
+  deck.addEventListener('touchend',function(e){
+    if(!sx)return;
+    var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+    sx=sy=0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))setSlide(index+(dx<0?1:-1),dx<0?1:-1);
+  },{passive:true});
+
+  /* ---------- quiz ---------- */
   [].slice.call(document.querySelectorAll('.answer')).forEach(function(btn){
+    if(!btn.dataset.orig)btn.dataset.orig=btn.textContent;
     btn.addEventListener('click',function(e){
       e.stopPropagation();
       var group=btn.parentNode;
-      [].slice.call(group.querySelectorAll('.answer')).forEach(function(b){b.classList.remove('good','bad');});
+      [].slice.call(group.querySelectorAll('.answer')).forEach(function(b){
+        b.classList.remove('good','bad');
+        if(b.dataset.orig)b.textContent=b.dataset.orig;
+      });
       var correct=btn.dataset.correct==='true';
       btn.classList.add(correct?'good':'bad');
       btn.textContent=correct?'✓ Correct':'Try again';
     });
   });
+
+  /* ---------- init ---------- */
+  dots.forEach(function(d,i){d.classList.toggle('on',i===0);d.setAttribute('aria-selected',i===0?'true':'false');});
   notesText.textContent=slides[0].getAttribute('data-notes')||'';
   progress.style.width=(100/slides.length)+'%';
+  renderMixer();
 })();
 </script>
 </body>
